@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiFood">
         <activity
+            android:name=".ui.foodDetail.FoodDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -22,9 +25,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="@string/app_name">
-
-        </activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
