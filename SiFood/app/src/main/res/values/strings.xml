@@ -4,4 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="siFood">SiFood</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_article">Article</string>
 </resources>
