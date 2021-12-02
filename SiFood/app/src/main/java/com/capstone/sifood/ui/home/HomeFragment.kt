@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.sifood.databinding.FragmentHomeBinding
+import com.capstone.sifood.other.Constant.LOCATION_NAME
+import java.lang.StringBuilder
 
 class HomeFragment : Fragment() {
 
@@ -29,6 +31,10 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {

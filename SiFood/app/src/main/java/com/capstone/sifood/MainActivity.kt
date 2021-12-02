@@ -20,8 +20,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.sifood.databinding.ActivityMainBinding
 import com.capstone.sifood.other.Constant
+import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.other.Constant.PERMISSION_ID
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLastLocation()
 
@@ -110,6 +114,8 @@ class MainActivity : AppCompatActivity() {
     private fun getLocationName(lat: Double, long: Double){
         val geoCoder = Geocoder(this, Locale.getDefault())
         val Adress = geoCoder.getFromLocation(lat,long,3)
-        Log.d("Debug:",Adress.get(0).toString())
+
+        LOCATION_NAME = Adress[0].adminArea.toString()
+
     }
 }

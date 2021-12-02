@@ -11,13 +11,9 @@ class FirebaseDatabase {
 
     private val foodCollection = firestore.collection(FOOD_COLLECTION)
 
-    fun getAllFood(): List<Food>{
-        val data = ArrayList<Food>()
-        foodCollection.get().addOnSuccessListener { foods ->
-            for (food in foods){
-//                parsing object dari database ke val data
-            }
-        }
-        return data
-    }
+//    fun getAllFood(): List<Food>{
+//        return try {
+//            foodCollection.get().await()
+//        }
+//    }
 }
