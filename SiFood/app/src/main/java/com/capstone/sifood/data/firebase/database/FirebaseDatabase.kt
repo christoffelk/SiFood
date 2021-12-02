@@ -11,7 +11,7 @@ class FirebaseDatabase {
 
     private val foodCollection = firestore.collection(FOOD_COLLECTION)
 
-//    fun getAllFood(): List<Food>{
+//    suspend fun getAllFood(): List<Food>{
 //        return try {
 //            foodCollection.get().await()
 //        }

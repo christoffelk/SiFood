@@ -21,7 +21,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.capstone.sifood.databinding.ActivityMainBinding
 import com.capstone.sifood.other.Constant
 import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.other.Constant.PERMISSION_ID
+import com.capstone.sifood.other.LocationPicker
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.util.*
@@ -29,7 +31,9 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    private lateinit var locationPicker: LocationPicker
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,15 +42,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        locationPicker = LocationPicker(this)
+        locationPicker.setLocation()
 
-        getLastLocation()
+        println(locationPicker.locationName)
+
 
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
@@ -56,66 +61,5 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    fun CheckPermission():Boolean {
-        if(
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ){
-            return true
-        }
 
-        return false
-
-    }
-
-    fun RequestPermission(){
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION),
-            PERMISSION_ID
-        )
-    }
-
-    @SuppressLint("MissingPermission")
-    fun getLastLocation(){
-        if(CheckPermission()){
-            if(isLocationEnabled()){
-                fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
-                    var location: Location? = task.result
-                    if(location == null){
-                        Toast.makeText(this,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Constant.LONGITUDE = location.longitude.toString()
-                        Constant.LATITUDE = location.latitude.toString()
-                        getLocationName(location.latitude,location.longitude)
-                    }
-                }
-            }else{
-                Toast.makeText(this,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
-            }
-        }else{
-            RequestPermission()
-        }
-    }
-
-    private fun isLocationEnabled(): Boolean {
-        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun getLocationName(lat: Double, long: Double){
-        val geoCoder = Geocoder(this, Locale.getDefault())
-        val Adress = geoCoder.getFromLocation(lat,long,3)
-
-        LOCATION_NAME = Adress[0].adminArea.toString()
-
-    }
 }
