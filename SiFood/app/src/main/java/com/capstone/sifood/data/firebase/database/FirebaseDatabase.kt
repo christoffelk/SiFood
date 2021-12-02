@@ -12,9 +12,23 @@ class FirebaseDatabase {
 
     private val foodCollection = firestore.collection(FOOD_COLLECTION)
 
-    suspend fun getAllFood(): List<Food>{
+    suspend fun getPopularFood(): List<Food>{
         return try {
-            foodCollection.get().result.toObjects(Food::class.java)
+            foodCollection
+                .whereEqualTo("popular", true)
+                .get()
+                .result.toObjects(Food::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getFoodByLocation(location: String): List<Food>{
+        return try {
+            foodCollection
+                .whereEqualTo("province", location)
+                .get()
+                .result.toObjects(Food::class.java)
         } catch (e: Exception) {
             emptyList()
         }
