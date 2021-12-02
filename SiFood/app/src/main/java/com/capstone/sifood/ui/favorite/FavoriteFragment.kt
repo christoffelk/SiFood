@@ -8,13 +8,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.sifood.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private var _binding: FragmentFavoriteBinding? = null
-
+    private lateinit var favoriteAdapter: FavoriteAdapter
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -28,9 +30,19 @@ class FavoriteFragment : Fragment() {
             ViewModelProvider(this)[FavoriteViewModel::class.java]
 
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        return root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        favoriteAdapter = FavoriteAdapter()
+        with(binding.rvFavorite)
+        {
+            layoutManager = GridLayoutManager(requireContext(),2)
+            setHasFixedSize(true)
+            adapter = favoriteAdapter
+        }
     }
 
     override fun onDestroyView() {
