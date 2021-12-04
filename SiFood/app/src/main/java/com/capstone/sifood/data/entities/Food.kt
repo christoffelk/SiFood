@@ -1,5 +1,9 @@
-package com.capstone.sifood.data.firebase.entities
+package com.capstone.sifood.data.entities
 
+import androidx.room.Entity
+
+
+@Entity(tableName = "food")
 data class Food(
     var id: Int = 0,
     var name: String? = null,

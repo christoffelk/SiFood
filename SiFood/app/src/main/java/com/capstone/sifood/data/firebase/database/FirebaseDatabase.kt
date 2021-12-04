@@ -1,6 +1,6 @@
 package com.capstone.sifood.data.firebase.database
 
-import com.capstone.sifood.data.firebase.entities.Food
+import com.capstone.sifood.data.entities.Food
 import com.capstone.sifood.other.Constant.FOOD_COLLECTION
 import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.Exception
