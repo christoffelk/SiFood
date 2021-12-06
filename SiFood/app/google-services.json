@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "615987029247",
+    "firebase_url": "https://sifood-90111-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sifood-90111",
+    "storage_bucket": "sifood-90111.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615987029247:android:3f08020aba9863287d98ca",
+        "android_client_info": {
+          "package_name": "com.capstone.sifood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615987029247-eh1udsaj2kj64m1ff451eokn7e2fs608.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8nA2d7XwGUx1MGhxShyObWmDiYXyFO4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615987029247-eh1udsaj2kj64m1ff451eokn7e2fs608.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
