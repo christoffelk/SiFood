@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.sifood.data.firebase.entities.Article
+import com.capstone.sifood.data.remote.response.ArticlesItem
 import com.capstone.sifood.databinding.FragmentArticleBinding
+import com.capstone.sifood.viewmodel.ViewModelFactory
 
 class ArticleFragment : Fragment() {
 
@@ -26,8 +29,9 @@ class ArticleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val factory =ViewModelFactory.getInstance(requireContext())
         articleViewModel =
-            ViewModelProvider(this)[ArticleViewModel::class.java]
+            ViewModelProvider(this,factory)[ArticleViewModel::class.java]
 
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         return binding.root
@@ -36,12 +40,16 @@ class ArticleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleAdapter = ArticleAdapter()
-        with(binding.rvArticle)
-        {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = articleAdapter
-            setHasFixedSize(true)
-        }
+        articleViewModel.getArticle().observe(viewLifecycleOwner,{
+            articleAdapter.addItem(it as ArrayList<ArticlesItem>)
+            with(binding.rvArticle)
+            {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = articleAdapter
+                setHasFixedSize(true)
+            }
+        })
+
     }
 
     override fun onDestroyView() {

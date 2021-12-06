@@ -8,7 +8,7 @@ import com.capstone.sifood.data.remote.RemoteDataSource
 import com.capstone.sifood.data.remote.response.ArticlesItem
 import com.capstone.sifood.other.AppExecutors
 
-class repository private constructor(
+class Repository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val firebaseDatabase: FirebaseDatabase,
@@ -42,5 +42,24 @@ class repository private constructor(
     override fun getArticle(): LiveData<List<ArticlesItem>> {
         return remoteDataSource.getNews()
     }
+    companion object{
+        @Volatile
+        private var instance : Repository? = null
 
+        fun getInstance(
+            remoteDataSource: RemoteDataSource,
+            localDataSource: LocalDataSource,
+            firebaseDatabase: FirebaseDatabase,
+            appExecutors: AppExecutors
+        ) : Repository =
+            instance?: synchronized(this)
+            {
+                instance?:Repository(
+                    remoteDataSource,
+                    localDataSource,
+                    firebaseDatabase,
+                    appExecutors
+                ).apply { instance= this }
+            }
+    }
 }

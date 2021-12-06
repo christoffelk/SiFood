@@ -1,13 +1,8 @@
 package com.capstone.sifood.ui.article
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.capstone.sifood.data.Repository
 
-class ArticleViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+class ArticleViewModel(private val repository: Repository) : ViewModel() {
+    fun getArticle()  = repository.getArticle()
 }
