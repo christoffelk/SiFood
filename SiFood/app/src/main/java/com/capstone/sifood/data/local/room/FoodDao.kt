@@ -1,4 +1,4 @@
-package com.capstone.sifood.data.local
+package com.capstone.sifood.data.local.room
 
 import androidx.room.Dao
 import androidx.room.Insert

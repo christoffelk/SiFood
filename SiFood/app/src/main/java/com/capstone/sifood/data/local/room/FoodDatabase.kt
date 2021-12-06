@@ -1,12 +1,10 @@
-package com.capstone.sifood.data.local
+package com.capstone.sifood.data.local.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.capstone.sifood.data.entities.Food
-import java.util.concurrent.Executors
 
 
 @Database(entities = [Food::class],
@@ -22,7 +20,7 @@ abstract class FoodDatabase: RoomDatabase() {
         private var INSTANCE: FoodDatabase? = null
 
         fun getInstance(context: Context): FoodDatabase {
-            return INSTANCE?: synchronized(this){
+            return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(context.applicationContext,
                     FoodDatabase::class.java, "food.db")
                     .build()
