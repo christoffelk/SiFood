@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import java.lang.StringBuilder
@@ -35,17 +36,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
-        with(binding.rvPopuler)
-        {
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-            adapter = homeAdapter
-            setHasFixedSize(true)
-        }
+
+        homeViewModel.home.observe(viewLifecycleOwner,{
+            homeAdapter.addItem(it as ArrayList<Food>)
+            with(binding.rvPopuler)
+            {
+                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                adapter = homeAdapter
+                setHasFixedSize(true)
+            }
+        })
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

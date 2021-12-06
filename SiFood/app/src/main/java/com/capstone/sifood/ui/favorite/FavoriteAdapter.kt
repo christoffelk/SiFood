@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.capstone.sifood.data.firebase.entities.Food
+import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ItemlistBinding
 
-class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>(){
+class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
     private val listUsers = ArrayList<Food>()
     fun addItem(users: ArrayList<Food>) {
         listUsers.clear()
         listUsers.addAll(users)
     }
-    class ViewHolder(private val binding : ItemlistBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(food: Food)
-        {
+
+    class ViewHolder(private val binding: ItemlistBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(food: Food) {
             with(binding)
             {
                 Glide.with(itemView.context)
@@ -27,7 +27,13 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemlistBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(
+            ItemlistBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
