@@ -1,4 +1,4 @@
-package com.capstone.sifood.data.entities
+package com.capstone.sifood.data.local.entities
 
 import androidx.room.Entity
 
