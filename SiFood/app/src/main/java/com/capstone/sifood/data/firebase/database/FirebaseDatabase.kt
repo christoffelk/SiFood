@@ -12,7 +12,6 @@ class FirebaseDatabase {
 
     private val foodCollection = firestore.collection(FOOD_COLLECTION)
 
-
     fun getPopularFood(): List<Food>{
         return try {
             foodCollection
