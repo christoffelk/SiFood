@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.google.firebase.FirebaseApp
 import java.lang.StringBuilder
 
 class HomeFragment : Fragment() {
@@ -17,8 +18,6 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeAdapter: HomeAdapter
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -45,6 +44,10 @@ class HomeFragment : Fragment() {
                 adapter = homeAdapter
                 setHasFixedSize(true)
             }
+        })
+
+        homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
+            println(it)
         })
 
     }
