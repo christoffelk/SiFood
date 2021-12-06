@@ -36,7 +36,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_populer"
         android:layout_width="wrap_content"
-        android:layout_height="170dp"
+        android:layout_height="190dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:listitem="@layout/itemlist" />
