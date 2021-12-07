@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.remote.response.ArticlesItem
 import com.capstone.sifood.databinding.ArticleListBinding
+import com.capstone.sifood.ui.articledetail.ArticleDetailActivity
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
     private val listUsers = ArrayList<ArticlesItem>()
@@ -28,9 +29,9 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
                     .into(imageView2)
             }
             itemView.setOnClickListener {
-                Intent(Intent.ACTION_VIEW, Uri.parse(article.url)).let {
-                    itemView.context.startActivity(it)
-                }
+                val intent = Intent(itemView.context,ArticleDetailActivity::class.java)
+                intent.putExtra(ArticleDetailActivity.URL,article.url)
+                itemView.context.startActivity(intent)
             }
         }
     }

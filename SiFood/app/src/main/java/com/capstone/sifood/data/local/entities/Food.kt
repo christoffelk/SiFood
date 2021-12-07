@@ -1,10 +1,12 @@
 package com.capstone.sifood.data.local.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 @Entity(tableName = "food")
 data class Food(
     @PrimaryKey(autoGenerate = true)
@@ -25,4 +27,4 @@ data class Food(
     @field:JvmField
     @ColumnInfo(name = "popular")
     var popular: Boolean? = null
-)
+) : Parcelable

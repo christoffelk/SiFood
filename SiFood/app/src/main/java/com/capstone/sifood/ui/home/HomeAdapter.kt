@@ -1,5 +1,6 @@
 package com.capstone.sifood.ui.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ItemlistBinding
+import com.capstone.sifood.ui.foodDetail.FoodDetailActivity
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private val listUsers = ArrayList<Food>()
@@ -27,6 +29,11 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
                         .error(R.drawable.ic_error))
                     .into(imageView)
                 namaMakanan.text = food.name
+            }
+            itemView.setOnClickListener{
+                val intent = Intent(itemView.context,FoodDetailActivity::class.java)
+                intent.putExtra(FoodDetailActivity.FOOD,food)
+                itemView.context.startActivity(intent)
             }
         }
     }
