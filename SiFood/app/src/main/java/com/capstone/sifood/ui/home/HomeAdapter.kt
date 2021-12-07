@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ItemlistBinding
 
@@ -20,6 +22,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
             {
                 Glide.with(itemView.context)
                     .load(food.imgUrl)
+                    .apply(
+                        RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error))
                     .into(imageView)
                 namaMakanan.text = food.name
             }
