@@ -8,22 +8,24 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/picture_background"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            tools:src="@drawable/img"
+            tools:src="@mipmap/img"
             android:scaleType="centerCrop"
             android:layout_gravity="top"
-            android:background="@drawable/shadow"/>
+            android:background="@drawable/shadow"
+            android:contentDescription="@string/picture" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:layout_gravity="top"
-            android:background="@drawable/shadow"/>
+            android:background="@drawable/shadow"
+            android:contentDescription="@string/picture" />
 
         <ImageButton
             android:id="@+id/btn_detail_back"
@@ -32,7 +34,8 @@
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:layout_gravity="top|start"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/picture" />
 
         <ImageButton
             android:id="@+id/btn_detail_favorite"
@@ -41,7 +44,8 @@
             android:background="@drawable/ic_favorite"
             android:layout_gravity="top|end"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/picture" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +61,7 @@
                 android:layout_marginTop="100dp"
                 tools:text="Nasi Padang"
                 android:textStyle="bold"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:gravity="center"/>
 
             <TextView
@@ -85,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="View on Google Maps"
+                android:text="@string/view_on_google_maps"
                 android:background="@drawable/button_bg"/>
         </LinearLayout>
 
@@ -94,7 +98,7 @@
             android:id="@+id/picture_profile"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            tools:src="@drawable/img"
+            tools:src="@mipmap/img"
             android:scaleType="centerCrop"
             app:civ_border_width="8dp"
             app:civ_border_color="@color/white"

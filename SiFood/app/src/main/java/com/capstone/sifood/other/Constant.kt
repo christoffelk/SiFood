@@ -5,6 +5,6 @@ object Constant {
     var LONGITUDE = ""
     var LATITUDE = ""
     var LOCATION_NAME = "Bali"
-    val PERMISSION_ID = 1010
+    const val PERMISSION_ID = 1010
 
 }

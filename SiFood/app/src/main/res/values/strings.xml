@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">SiFood</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="siFood">SiFood</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_article">Article</string>
 
     <!--    Detail Food-->
     <string name="sample">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.</string>
+    <string name="picture">picture</string>
+    <string name="view_on_google_maps">View on Google Maps</string>
+    <string name="makanan_terpopuler">Makanan Terpopuler</string>
+    <string name="makanan_tradisional_yang_sudah_terkenal">Makanan Tradisional yang sudah terkenal</string>
+    <string name="lihat_semua"><![CDATA[Lihat Semua >]]></string>
+    <string name="makanan_yang_berasal_ndari_daerahmu">Makanan yang berasal \ndari daerahmu</string>
+    <string name="makanan_tradisional_yang_berasal_dari_daerahmu">Makanan tradisional yang berasal dari daerahmu</string>
 
 </resources>
