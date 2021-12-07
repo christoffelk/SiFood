@@ -1,5 +1,7 @@
 package com.capstone.sifood.ui.article
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +26,11 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
                 Glide.with(itemView.context)
                     .load(article.urlToImage)
                     .into(imageView2)
+            }
+            itemView.setOnClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(article.url)).let {
+                    itemView.context.startActivity(it)
+                }
             }
         }
     }
