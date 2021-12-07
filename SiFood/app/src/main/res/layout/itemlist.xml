@@ -10,15 +10,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/nama_makanan"
@@ -28,7 +30,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            tools:text="Makanan sehat" />
+            tools:text="Makanan sehat"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
