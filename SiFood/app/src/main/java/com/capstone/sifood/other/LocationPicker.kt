@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import java.util.*
 import android.app.Activity
+import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -19,6 +20,11 @@ class LocationPicker(private val context: Context) {
 
     private var fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context as Activity)
+    var locationName: String? = null
+
+    fun setLocation() {
+        getLastLocation()
+    }
 
     private fun CheckPermission():Boolean {
         if(
@@ -46,7 +52,7 @@ class LocationPicker(private val context: Context) {
     }
 
     @SuppressLint("MissingPermission")
-    fun getLastLocation(callback: (String) -> Unit){
+    private fun getLastLocation(){
         if(CheckPermission()){
             if(isLocationEnabled()){
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
@@ -56,9 +62,7 @@ class LocationPicker(private val context: Context) {
                     }else{
                         Constant.LONGITUDE = location.longitude.toString()
                         Constant.LATITUDE = location.latitude.toString()
-                        getLocationName(location.latitude,location.longitude).let {
-                            callback(it)
-                        }
+                        getLocationName(location.latitude,location.longitude)
                     }
                 }
             }else{
@@ -76,10 +80,14 @@ class LocationPicker(private val context: Context) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getLocationName(lat: Double, long: Double): String {
+    private fun getLocationName(lat: Double, long: Double) {
         val geoCoder = Geocoder(context, Locale.getDefault())
-        val Adress = geoCoder.getFromLocation(lat,long,1)
+        val Adress = geoCoder.getFromLocation(lat,long,3)
+        LOCATION_NAME = Adress[0].adminArea.toString()
+        this.locationName = Adress[0].adminArea.toString()
 
-        return Adress[0].adminArea.toString()
+
+
+        println("locationName: "+ this.locationName)
     }
 }

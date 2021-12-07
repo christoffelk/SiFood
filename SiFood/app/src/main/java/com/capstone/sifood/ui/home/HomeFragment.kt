@@ -42,23 +42,17 @@ class HomeFragment : Fragment() {
             {
                 layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
                 adapter = homeAdapter
-                setHasFixedSize(false)
+                setHasFixedSize(true)
             }
-
-            println("Popular"+it.size)
         })
 
         homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
-            homeAdapter.addItem(it as ArrayList<Food>)
-            with(binding.rvDaerah)
-            {
-                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-                adapter = homeAdapter
-                setHasFixedSize(false)
-            }
-            println("Daerah"+it.size)
+            println(it)
         })
+
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

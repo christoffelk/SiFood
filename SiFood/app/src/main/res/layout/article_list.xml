@@ -19,7 +19,8 @@
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars"
-            android:scaleType="centerCrop">
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/picture">
 
         </ImageView>
 

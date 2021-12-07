@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.coroutines.launch
 
-class HomeViewModel() : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     private val _home = MutableLiveData<List<Food>>()
     val home : LiveData<List<Food>> = _home
@@ -34,7 +34,7 @@ class HomeViewModel() : ViewModel() {
             .get()
             .addOnSuccessListener { foods ->
                 val resultFood = foods.toObjects(Food::class.java)
-                var result = ArrayList<Food>()
+                val result = ArrayList<Food>()
                 resultFood.forEach {
                     result.add(
                         Food(
@@ -58,7 +58,7 @@ class HomeViewModel() : ViewModel() {
             .get()
             .addOnSuccessListener { foods ->
                 val resultFood = foods.toObjects(Food::class.java)
-                var result = ArrayList<Food>()
+                val result = ArrayList<Food>()
                 resultFood.forEach {
                     result.add(
                         Food(

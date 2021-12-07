@@ -8,19 +8,6 @@ import com.capstone.sifood.di.Injection
 import com.capstone.sifood.ui.article.ArticleViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) : ViewModelProvider.Factory{
-    companion object{
-        @Volatile
-        private var instance :ViewModelFactory? = null
-
-        fun getInstance(context: Context) : ViewModelFactory =
-            instance ?: synchronized(this)
-            {
-                instance?: ViewModelFactory(
-                    Injection.provideRepository(context)
-                )
-            }
-    }
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when
         {
@@ -33,5 +20,17 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             }
 
         }
+    }
+    companion object{
+        @Volatile
+        private var instance :ViewModelFactory? = null
+
+        fun getInstance(context: Context) : ViewModelFactory =
+            instance ?: synchronized(this)
+            {
+                instance?: ViewModelFactory(
+                    Injection.provideRepository(context)
+                )
+            }
     }
 }
