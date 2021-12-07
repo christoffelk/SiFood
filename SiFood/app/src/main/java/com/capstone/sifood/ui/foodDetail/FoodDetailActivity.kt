@@ -1,9 +1,11 @@
 package com.capstone.sifood.ui.foodDetail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.capstone.sifood.MainActivity
 import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityFoodDetailBinding
@@ -21,6 +23,10 @@ class FoodDetailActivity : AppCompatActivity() {
         binding.from.text = foodDetail?.province.toString()
         binding.pictureProfile.loadImage(foodDetail?.imgUrl)
         binding.pictureBackground.loadImage(foodDetail?.imgUrl)
+        binding.btnDetailBack.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun ImageView.loadImage(url : String?)
     {
