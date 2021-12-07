@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:elevation="20dp"
+    android:layout_margin="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +18,8 @@
             android:layout_height="100dp"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars">
+            tools:src="@tools:sample/avatars"
+            android:scaleType="centerCrop">
 
         </ImageView>
 
@@ -32,14 +35,14 @@
 
         <TextView
             android:id="@+id/tv_judul"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            card_view:layout_constrainedWidth="true"
-            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/imageView2"
+            card_view:layout_constraintStart_toStartOf="@+id/tv_tahun"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_tahun"
             tools:text="Judul" />
     </androidx.constraintlayout.widget.ConstraintLayout>
