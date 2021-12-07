@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import java.util.*
 import android.app.Activity
+import android.content.ComponentCallbacks
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -20,11 +21,7 @@ class LocationPicker(private val context: Context) {
 
     private var fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context as Activity)
-    var locationName: String? = null
 
-    fun setLocation() {
-        getLastLocation()
-    }
 
     private fun CheckPermission():Boolean {
         if(
@@ -52,7 +49,7 @@ class LocationPicker(private val context: Context) {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLastLocation(){
+    fun getLastLocation(callbacks: (String, String, String)->Unit){
         if(CheckPermission()){
             if(isLocationEnabled()){
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
@@ -60,9 +57,11 @@ class LocationPicker(private val context: Context) {
                     if(location == null){
                         Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
                     }else{
-                        Constant.LONGITUDE = location.longitude.toString()
-                        Constant.LATITUDE = location.latitude.toString()
-                        getLocationName(location.latitude,location.longitude)
+                        val longitude = location.longitude.toString()
+                        val latitude = location.latitude.toString()
+                        getLocationName(location.latitude,location.longitude)?.let {
+                            callbacks(it,longitude,latitude)
+                        }
                     }
                 }
             }else{
@@ -80,14 +79,11 @@ class LocationPicker(private val context: Context) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getLocationName(lat: Double, long: Double) {
+    private fun getLocationName(lat: Double, long: Double): String? {
         val geoCoder = Geocoder(context, Locale.getDefault())
         val Adress = geoCoder.getFromLocation(lat,long,3)
-        LOCATION_NAME = Adress[0].adminArea.toString()
-        this.locationName = Adress[0].adminArea.toString()
 
+        return Adress[0].adminArea
 
-
-        println("locationName: "+ this.locationName)
     }
 }

@@ -47,7 +47,13 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
-            println(it)
+            homeAdapter.addItem(it as ArrayList<Food>)
+            with(binding.rvDaerah)
+            {
+                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                adapter = homeAdapter
+                setHasFixedSize(true)
+            }
         })
 
     }

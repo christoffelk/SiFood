@@ -7,6 +7,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.sifood.databinding.ActivityMainBinding
+import com.capstone.sifood.other.Constant.LATITUDE
+import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.capstone.sifood.other.Constant.LONGITUDE
+import com.capstone.sifood.other.LocationPicker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
 
@@ -27,8 +31,10 @@ class MainActivity : AppCompatActivity() {
 
 
         locationPicker = LocationPicker(this)
-        println(locationPicker.getLastLocation{
-            LOCATION_NAME = it
+        println(locationPicker.getLastLocation{ name, long, lat ->
+            LOCATION_NAME = name
+            LONGITUDE = long
+            LATITUDE = lat
         })
 
         val navView: BottomNavigationView = binding.navView
@@ -43,6 +49,4 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-
-
 }
