@@ -53,5 +53,11 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         holder.bind(food)
     }
 
-    override fun getItemCount(): Int = listUsers.size
+    override fun getItemCount(): Int {
+        return if (listUsers.size < 10){
+            listUsers.size
+        } else {
+            10
+        }
+    }
 }

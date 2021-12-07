@@ -32,10 +32,9 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
 
-//    private lateinit var locationPicker: LocationPicker
+    private lateinit var locationPicker: LocationPicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +45,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-//        locationPicker = LocationPicker(this)
-//        locationPicker.setLocation()
-
-//        println(locationPicker.locationName)
+        locationPicker = LocationPicker(this)
+        println(locationPicker.getLastLocation{
+            LOCATION_NAME = it
+        })
 
         val navView: BottomNavigationView = binding.navView
 

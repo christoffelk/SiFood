@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_refresh_black.xml" value="0.15104166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/article_list.xml" value="0.2609375" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/itemlist.xml" value="0.2609375" />
       </map>
     </option>
