@@ -35,9 +35,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
-
+        binding.loading.visibility = View.VISIBLE
         homeViewModel.home.observe(viewLifecycleOwner,{
             homeAdapter.addItem(it as ArrayList<Food>)
+            binding.loading.visibility = View.GONE
             with(binding.rvPopuler)
             {
                 layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
+        /*homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
             homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
@@ -54,7 +55,7 @@ class HomeFragment : Fragment() {
                 adapter = homeAdapter
                 setHasFixedSize(true)
             }
-        })
+        })*/
 
     }
 
