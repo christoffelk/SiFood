@@ -18,6 +18,9 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeAdapter: HomeAdapter
+
+    private lateinit var secHomeAdapter: HomeAdapter
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -35,6 +38,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
+        secHomeAdapter = HomeAdapter()
 
         homeViewModel.home.observe(viewLifecycleOwner,{
             homeAdapter.addItem(it as ArrayList<Food>)
@@ -47,11 +51,11 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
-            homeAdapter.addItem(it as ArrayList<Food>)
+            secHomeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
                 layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-                adapter = homeAdapter
+                adapter = secHomeAdapter
                 setHasFixedSize(true)
             }
         })
