@@ -37,10 +37,8 @@ class ArticleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleAdapter = ArticleAdapter()
-        binding.loading.visibility = View.VISIBLE
         articleViewModel.getArticle().observe(viewLifecycleOwner, {
             articleAdapter.addItem(it as ArrayList<ArticlesItem>)
-            binding.loading.visibility = View.GONE
             with(binding.rvArticle)
             {
                 layoutManager = LinearLayoutManager(requireContext())
