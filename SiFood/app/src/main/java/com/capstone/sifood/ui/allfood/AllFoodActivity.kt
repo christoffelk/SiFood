@@ -1,15 +1,23 @@
 package com.capstone.sifood.ui.allfood
 
+import android.graphics.drawable.ShapeDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityAllFoodBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
+import android.graphics.drawable.Drawable
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.GradientDrawable
+
 
 class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
@@ -19,7 +27,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_food)
+        setContentView(com.capstone.sifood.R.layout.activity_all_food)
 
         binding = ActivityAllFoodBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -50,6 +58,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         })
 
         binding.searchView.setOnQueryTextListener(this)
+
     }
 
     companion object {

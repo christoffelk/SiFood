@@ -80,10 +80,14 @@ class LocationPicker(private val context: Context) {
 
     @SuppressLint("SetTextI18n")
     private fun getLocationName(lat: Double, long: Double): String? {
-        val geoCoder = Geocoder(context, Locale.getDefault())
-        val Adress = geoCoder.getFromLocation(lat,long,3)
+        return try {
+            val geoCoder = Geocoder(context, Locale.getDefault())
+            val Adress = geoCoder.getFromLocation(lat,long,1)
+            Adress[0].adminArea.toString()
+        } catch (e:Exception){
+            "Bali"
+        }
 
-        return Adress[0].adminArea
 
     }
 }

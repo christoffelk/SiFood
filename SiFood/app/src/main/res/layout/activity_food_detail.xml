@@ -48,6 +48,7 @@
             android:contentDescription="@string/picture" />
 
         <LinearLayout
+            android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
@@ -101,7 +102,7 @@
             tools:src="@mipmap/img"
             android:scaleType="centerCrop"
             app:civ_border_width="8dp"
-            app:civ_border_color="@color/white"
+            app:civ_border_color="?android:attr/colorBackground"
             android:layout_gravity="top|center"
             android:layout_marginTop="100dp"
             android:elevation="10dp"/>
