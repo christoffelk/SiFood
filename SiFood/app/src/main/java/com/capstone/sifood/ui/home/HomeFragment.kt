@@ -10,17 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
-import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.ui.allfood.AllFoodActivity
-import com.capstone.sifood.ui.setting.SettingActivity
-import com.google.firebase.FirebaseApp
-import java.lang.StringBuilder
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeAdapter: HomeAdapter
+    private lateinit var secHomeAdapter: HomeAdapter
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -38,6 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
+        secHomeAdapter = HomeAdapter()
         binding.loading.visibility = View.VISIBLE
         homeViewModel.home.observe(viewLifecycleOwner,{
             binding.loading.visibility= View.GONE
@@ -54,15 +52,15 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        /*homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
-            homeAdapter.addItem(it as ArrayList<Food>)
+        homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
+            secHomeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
                 layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-                adapter = homeAdapter
+                adapter = secHomeAdapter
                 setHasFixedSize(true)
             }
-        })*/
+        })
 
     }
 
