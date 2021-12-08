@@ -1,5 +1,6 @@
 package com.capstone.sifood.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.capstone.sifood.ui.allfood.AllFoodActivity
 import com.google.firebase.FirebaseApp
 import java.lang.StringBuilder
 
@@ -59,6 +61,20 @@ class HomeFragment : Fragment() {
                 setHasFixedSize(true)
             }
         })
+
+        with(binding){
+            btnLocation.setOnClickListener {
+                Intent(context, AllFoodActivity::class.java).putExtra(AllFoodActivity.FILTER, "location").let {
+                    startActivity(it)
+                }
+            }
+
+            btnPopular.setOnClickListener {
+                Intent(context, AllFoodActivity::class.java).putExtra(AllFoodActivity.FILTER, "popular").let {
+                    startActivity(it)
+                }
+            }
+        }
 
     }
 

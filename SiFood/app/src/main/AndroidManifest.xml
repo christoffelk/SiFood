@@ -15,13 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiFood">
         <activity
+            android:name=".ui.allfood.AllFoodActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.articledetail.ArticleDetailActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ui.foodDetail.FoodDetailActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
