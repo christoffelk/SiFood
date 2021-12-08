@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.sifood.databinding.FragmentFavoriteBinding
+import com.capstone.sifood.viewmodel.ViewModelFactory
 
 class FavoriteFragment : Fragment() {
 
@@ -24,8 +25,9 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val factory = ViewModelFactory.getInstance(requireContext())
         favoriteViewModel =
-            ViewModelProvider(this)[FavoriteViewModel::class.java]
+            ViewModelProvider(this,factory)[FavoriteViewModel::class.java]
 
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 

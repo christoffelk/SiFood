@@ -5,26 +5,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.capstone.sifood.data.remote.response.ArticlesItem
+import com.capstone.sifood.data.firebase.entities.Article
+import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.databinding.ArticleListBinding
 import com.capstone.sifood.ui.articledetail.ArticleDetailActivity
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
-    private val listUsers = ArrayList<ArticlesItem>()
-    fun addItem(users: ArrayList<ArticlesItem>) {
-        listUsers.clear()
-        listUsers.addAll(users)
+    private var listUsers = ArrayList<Article>()
+    fun addItem(users: List<Article>) {
+        this.listUsers.clear()
+        this.listUsers.addAll(users)
     }
 
     class ViewHolder(private val binding: ArticleListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(article: ArticlesItem) {
+        fun bind(article: Article) {
             with(binding)
             {
                 tvJudul.text = article.title
-                tvTahun.text = article.publishedAt
+                tvTahun.text = article.year
                 Glide.with(itemView.context)
-                    .load(article.urlToImage)
+                    .load(article.picture)
                     .into(imageView2)
             }
             itemView.setOnClickListener {

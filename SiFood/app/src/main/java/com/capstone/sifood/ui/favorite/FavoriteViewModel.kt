@@ -3,11 +3,9 @@ package com.capstone.sifood.ui.favorite
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.capstone.sifood.data.Repository
+import com.capstone.sifood.data.local.entities.Food
 
-class FavoriteViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+class FavoriteViewModel(private val repository: Repository) : ViewModel() {
+    fun insertFavorite(data : Food) = repository.insertFavoriteFood(data)
 }
