@@ -48,8 +48,18 @@ class HomeFragment : Fragment() {
             }
         })
         binding.btn1.setOnClickListener {
-            val intent = Intent(requireContext(), AllFoodActivity::class.java)
-            startActivity(intent)
+            Intent(requireContext(), AllFoodActivity::class.java)
+                .putExtra(AllFoodActivity.FILTER, "popular")
+                .let {
+                    startActivity(it)
+                }
+        }
+        binding.btn2.setOnClickListener {
+            Intent(requireContext(), AllFoodActivity::class.java)
+                .putExtra(AllFoodActivity.FILTER, "location")
+                .let {
+                    startActivity(it)
+                }
         }
 
         homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
@@ -63,8 +73,6 @@ class HomeFragment : Fragment() {
         })
 
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
