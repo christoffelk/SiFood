@@ -14,6 +14,7 @@ class AllFoodViewModel: ViewModel() {
     private var _data = MutableLiveData<List<Food>>()
     val data: LiveData<List<Food>> = _data
 
+
     private lateinit var firestore: FirebaseFirestore
 
     init {
@@ -23,7 +24,7 @@ class AllFoodViewModel: ViewModel() {
         }
     }
 
-    fun setData(filter: String, query: String = ""){
+    fun setData(filter: String, keyword: String = ""){
         when (filter){
             "popular" -> {
                 getPopularFood()
@@ -32,7 +33,7 @@ class AllFoodViewModel: ViewModel() {
                 getFoodByLocation(LOCATION_NAME)
             }
             "search" -> {
-                //TODO: create funtion for get data in firebase from query
+                getFoodByKeyword(keyword)
             }
         }
     }
@@ -82,6 +83,29 @@ class AllFoodViewModel: ViewModel() {
                     )
                 }
                 _data.value = result
+            }
+    }
+
+    private fun getFoodByKeyword(keyword: String){
+        val foodCollection = firestore.collection("makanan")
+        foodCollection.whereEqualTo("province", keyword)
+            .get()
+            .addOnSuccessListener { foods ->
+                val resultFood = foods.toObjects(Food::class.java)
+                val result = ArrayList<Food>()
+                resultFood.forEach {
+                    result.add(
+                        Food(
+                            id = it.id,
+                            imgUrl = it.imgUrl,
+                            name = it.name,
+                            province = it.province,
+                            description = it.description,
+                            popular = it.popular
+                        )
+                    )
+                }
+                _data.postValue(result)
             }
     }
 

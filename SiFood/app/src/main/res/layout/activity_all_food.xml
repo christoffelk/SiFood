@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -30,8 +30,10 @@
                 android:padding="5dp">
 
                 <SearchView
+                    android:id="@+id/search_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:queryHint="Nama atau daerah"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -61,16 +63,6 @@
             app:layout_constraintTop_toBottomOf="@+id/text_result"
             tools:listitem="@layout/itemlist" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Hasil tidak ditemukan"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/rv_all_food"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

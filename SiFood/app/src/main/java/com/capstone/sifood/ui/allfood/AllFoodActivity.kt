@@ -2,6 +2,8 @@ package com.capstone.sifood.ui.allfood
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.sifood.R
@@ -9,7 +11,7 @@ import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityAllFoodBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 
-class AllFoodActivity : AppCompatActivity() {
+class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var binding: ActivityAllFoodBinding
     private lateinit var allFoodAdapter: AllFoodAdapter
@@ -42,13 +44,36 @@ class AllFoodActivity : AppCompatActivity() {
             allFoodAdapter.addItem(data as ArrayList<Food>)
             with(binding.rvAllFood){
                 layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
-                setHasFixedSize(true)
+                setHasFixedSize(false)
                 adapter = allFoodAdapter
             }
         })
+
+        binding.searchView.setOnQueryTextListener(this)
     }
 
     companion object {
         const val FILTER = "filter"
+    }
+
+    override fun onQueryTextSubmit(key: String?): Boolean {
+        if (key != null){
+            viewModel.setData("search", key)
+            viewModel.data.observe(this,{
+                val data = it as ArrayList<Food>
+                if (data.isNotEmpty()){
+                    allFoodAdapter.addItem(data)
+                    binding.textResult.text ="Makanan dengan keyword \'$key\'"
+                } else{
+                    binding.textResult.text ="Makanan dengan keyword \'$key\' tidak ditemukan"
+                }
+            })
+            return true
+        }
+        return false
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        return false
     }
 }
