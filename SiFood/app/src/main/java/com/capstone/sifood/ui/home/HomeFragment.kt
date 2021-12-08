@@ -1,6 +1,5 @@
 package com.capstone.sifood.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
-import com.capstone.sifood.ui.allfood.AllFoodActivity
 import com.google.firebase.FirebaseApp
 import java.lang.StringBuilder
 
@@ -20,9 +18,6 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeAdapter: HomeAdapter
-
-    private lateinit var secHomeAdapter: HomeAdapter
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -40,7 +35,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
-        secHomeAdapter = HomeAdapter()
 
         homeViewModel.home.observe(viewLifecycleOwner,{
             homeAdapter.addItem(it as ArrayList<Food>)
@@ -53,28 +47,14 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
-            secHomeAdapter.addItem(it as ArrayList<Food>)
+            homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
                 layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-                adapter = secHomeAdapter
+                adapter = homeAdapter
                 setHasFixedSize(true)
             }
         })
-
-        with(binding){
-            btnLocation.setOnClickListener {
-                Intent(context, AllFoodActivity::class.java).putExtra(AllFoodActivity.FILTER, "location").let {
-                    startActivity(it)
-                }
-            }
-
-            btnPopular.setOnClickListener {
-                Intent(context, AllFoodActivity::class.java).putExtra(AllFoodActivity.FILTER, "popular").let {
-                    startActivity(it)
-                }
-            }
-        }
 
     }
 
