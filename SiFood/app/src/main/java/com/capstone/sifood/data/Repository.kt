@@ -16,6 +16,7 @@ class Repository private constructor(
 ): AllDataSource{
     override fun getPopularFood(): List<Food> {
         return firebaseDatabase.getPopularFood()
+
     }
 
     override fun getFoodByLocation(location: String): List<Food> {

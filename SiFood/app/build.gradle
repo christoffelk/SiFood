@@ -39,7 +39,6 @@ android {
 
 dependencies {
 
-    implementation 'androidx.preference:preference-ktx:1.1.1'
     ext {
         room_version = "2.3.0"
     }
