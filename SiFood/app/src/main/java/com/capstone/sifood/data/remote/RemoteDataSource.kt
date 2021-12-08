@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.capstone.sifood.data.remote.api.ApiConfig
+import com.capstone.sifood.data.remote.response.ApiResponse
 import com.capstone.sifood.data.remote.response.ArticlesItem
 import com.capstone.sifood.data.remote.response.NewsResponse
 import retrofit2.Call
@@ -25,9 +26,9 @@ class RemoteDataSource {
             }
     }
 
-    fun getNews(): LiveData<List<ArticlesItem>> {
+    fun getNews(): LiveData<ApiResponse<List<ArticlesItem>>> {
 
-        val resultNews = MutableLiveData<List<ArticlesItem>>()
+        val resultNews = MutableLiveData<ApiResponse<List<ArticlesItem>>>()
 
         val client = ApiConfig.getApiSevice().getNews(Q, SHORTBY, API_KEY)
         client.enqueue(object : Callback<NewsResponse> {
@@ -35,7 +36,7 @@ class RemoteDataSource {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        resultNews.value = responseBody.articles
+                        resultNews.value = ApiResponse.success(responseBody.articles)
                     }
                 }
             }

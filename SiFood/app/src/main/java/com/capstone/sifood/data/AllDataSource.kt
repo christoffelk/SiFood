@@ -1,6 +1,8 @@
 package com.capstone.sifood.data
 
 import androidx.lifecycle.LiveData
+import com.capstone.sifood.data.firebase.entities.Article
+import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.data.remote.response.ArticlesItem
 
@@ -10,5 +12,5 @@ interface AllDataSource {
     fun getFavoriteFood():List<Food>
     fun insertFavoriteFood(data: Food)
     fun deleteFavoriteFood(id: String)
-    fun getArticle(): LiveData<List<ArticlesItem>>
+    fun getArticle(): LiveData<Resource<List<Article>>>
 }

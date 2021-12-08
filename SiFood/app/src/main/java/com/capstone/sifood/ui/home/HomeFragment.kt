@@ -1,5 +1,6 @@
 package com.capstone.sifood.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.capstone.sifood.ui.allfood.AllFoodActivity
+import com.capstone.sifood.ui.setting.SettingActivity
 import com.google.firebase.FirebaseApp
 import java.lang.StringBuilder
 
@@ -35,8 +38,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
-
+        binding.loading.visibility = View.VISIBLE
         homeViewModel.home.observe(viewLifecycleOwner,{
+            binding.loading.visibility= View.GONE
             homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvPopuler)
             {
@@ -45,8 +49,12 @@ class HomeFragment : Fragment() {
                 setHasFixedSize(true)
             }
         })
+        binding.btn1.setOnClickListener {
+            val intent = Intent(requireContext(), AllFoodActivity::class.java)
+            startActivity(intent)
+        }
 
-        homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
+        /*homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
             homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
@@ -54,7 +62,7 @@ class HomeFragment : Fragment() {
                 adapter = homeAdapter
                 setHasFixedSize(true)
             }
-        })
+        })*/
 
     }
 
