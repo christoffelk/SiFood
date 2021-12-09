@@ -26,5 +26,6 @@ data class Food(
 
     @field:JvmField
     @ColumnInfo(name = "popular")
-    var popular: Boolean? = null
+    var popular: Boolean? = null,
+
 ) : Parcelable

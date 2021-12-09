@@ -22,6 +22,9 @@ interface FoodDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(data : List<Article>)
 
+    @Query("SELECT EXISTS(SELECT * FROM food where id = :id)")
+    fun checkFood(id: String) : Boolean
+
     @Query("DELETE FROM food WHERE id = :id")
     fun deleteFood(id: String)
 }

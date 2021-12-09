@@ -10,13 +10,16 @@ import kotlinx.coroutines.launch
 
 class FoodDetailViewModel(private val repository: Repository) : ViewModel() {
     private var _button = MutableLiveData<Boolean>()
-    val button : LiveData<Boolean> = _button
+    val button: LiveData<Boolean> = _button
+    fun check(id: String) : Boolean{
+        return repository.checkFood(id)
+    }
+
     fun insert(food: Food) {
-        _button.value = true
         repository.insertFavoriteFood(food)
     }
+
     fun delete(id: String) {
-        _button.value = false
         repository.deleteFavoriteFood(id)
     }
 }

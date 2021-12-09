@@ -47,8 +47,6 @@ class FavoriteFragment : Fragment() {
                 adapter = favoriteAdapter
             }
         })
-
-
     }
 
     override fun onDestroyView() {

@@ -43,6 +43,9 @@ class Repository private constructor(
         }
     }
 
+    override fun checkFood(id: String) : Boolean {
+        return localDataSource.checkFood(id)
+    }
 
 
     override fun getArticle(): LiveData<Resource<List<Article>>> {

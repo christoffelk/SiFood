@@ -12,7 +12,6 @@ import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityFoodDetailBinding
 import com.capstone.sifood.other.Constant.LATITUDE
-import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.viewmodel.ViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -45,29 +44,37 @@ class FoodDetailActivity : AppCompatActivity() {
             startActivity(mapIntent)
         }
         val factory = ViewModelFactory.getInstance(this)
-        val detailViewModel = ViewModelProvider(this,factory)[FoodDetailViewModel::class.java]
-        var checked : Boolean
-        detailViewModel.button.observe(this,{
-            if(it)
+        val detailViewModel = ViewModelProvider(this, factory)[FoodDetailViewModel::class.java]
+        var checked = false
+        CoroutineScope(Dispatchers.IO).launch {
+            val check =detailViewModel.check(foodDetail?.id.toString())
+            withContext(Dispatchers.Main)
             {
-                binding.btnDetailFavorite.background = getDrawable(R.drawable.ic_baseline_favorite_24)
-            }
-            else
-            {
-                binding.btnDetailFavorite.background = getDrawable(R.drawable.ic_baseline_favorite_border_24)
-            }
-        })
-        binding.btnDetailFavorite.setOnClickListener {
-            checked = binding.btnDetailFavorite.isChecked
-            if(!checked)
-            {
+                if(check)
+                {
+                    binding.btnDetailFavorite.isChecked = true
+                    checked = true
+                    binding.btnDetailFavorite.background =
+                        getDrawable(R.drawable.ic_baseline_favorite_24)
+                }
+                else
+                {
+                    binding.btnDetailFavorite.isChecked = false
+                    checked = false
+                    binding.btnDetailFavorite.background =
+                        getDrawable(R.drawable.ic_baseline_favorite_border_24)
+                }
 
-                foodDetail?.let { it1 -> detailViewModel.insert(it1) }
             }
-            else
-            {
+        }
+        binding.btnDetailFavorite.setOnClickListener {
+            checked = !checked
+            if (checked) {
+                foodDetail?.let { it1 -> detailViewModel.insert(it1) }
+            } else {
                 detailViewModel.delete(foodDetail?.id.toString())
             }
+            binding.btnDetailFavorite.isChecked = checked
         }
     }
 

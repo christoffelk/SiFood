@@ -19,6 +19,7 @@ class LocalDataSource private constructor(private val mFoodDao: FoodDao) {
     fun insertArticle(article : List<Article>) = mFoodDao.insertArticle(article)
     fun getAllFood(): LiveData<List<Food>> = mFoodDao.getAllFood()
     fun insertFood(data: Food) = mFoodDao.insertFood(data)
+    fun checkFood(id: String) : Boolean = mFoodDao.checkFood(id)
     fun deleteFood(id: String) = mFoodDao.deleteFood(id)
 
 }
