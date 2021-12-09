@@ -54,15 +54,11 @@ class FoodDetailActivity : AppCompatActivity() {
                 {
                     binding.btnDetailFavorite.isChecked = true
                     checked = true
-                    binding.btnDetailFavorite.background =
-                        getDrawable(R.drawable.ic_baseline_favorite_24)
                 }
                 else
                 {
                     binding.btnDetailFavorite.isChecked = false
                     checked = false
-                    binding.btnDetailFavorite.background =
-                        getDrawable(R.drawable.ic_baseline_favorite_border_24)
                 }
 
             }
