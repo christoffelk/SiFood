@@ -27,7 +27,7 @@ class Repository private constructor(
         return firebaseDatabase.getFoodByLocation(location)
     }
 
-    override fun getFavoriteFood(): List<Food> {
+    override fun getFavoriteFood(): LiveData<List<Food>> {
         return localDataSource.getAllFood()
     }
 
@@ -42,6 +42,8 @@ class Repository private constructor(
             localDataSource.deleteFood(id)
         }
     }
+
+
 
     override fun getArticle(): LiveData<Resource<List<Article>>> {
         return object :NetworkBoundResource<List<Article>,List<ArticlesItem>>(appExecutors)

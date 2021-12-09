@@ -7,5 +7,5 @@ import com.capstone.sifood.data.Repository
 import com.capstone.sifood.data.local.entities.Food
 
 class FavoriteViewModel(private val repository: Repository) : ViewModel() {
-    fun insertFavorite(data : Food) = repository.insertFavoriteFood(data)
+    fun getFavorite() = repository.getFavoriteFood()
 }

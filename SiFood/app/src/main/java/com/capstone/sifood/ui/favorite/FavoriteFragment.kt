@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentFavoriteBinding
 import com.capstone.sifood.viewmodel.ViewModelFactory
 
@@ -37,12 +38,17 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favoriteAdapter = FavoriteAdapter()
-        with(binding.rvFavorite)
-        {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            setHasFixedSize(true)
-            adapter = favoriteAdapter
-        }
+        favoriteViewModel.getFavorite().observe(viewLifecycleOwner,{
+            favoriteAdapter.addItem(it as ArrayList<Food>)
+            with(binding.rvFavorite)
+            {
+                layoutManager = GridLayoutManager(requireContext(), 2)
+                setHasFixedSize(true)
+                adapter = favoriteAdapter
+            }
+        })
+
+
     }
 
     override fun onDestroyView() {

@@ -10,12 +10,11 @@ import com.capstone.sifood.data.local.entities.Food
 
 @Dao
 interface FoodDao {
-
     @Insert
     fun  insertFood(data: Food)
 
     @Query("SELECT * FROM food")
-    fun getAllFood(): List<Food>
+    fun getAllFood(): LiveData<List<Food>>
 
     @Query("SELECT * FROM article")
     fun getAllArticle() : LiveData<List<Article>>

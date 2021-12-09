@@ -5,13 +5,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.sifood.MainActivity
+import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityFoodDetailBinding
 import com.capstone.sifood.other.Constant.LATITUDE
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.other.Constant.LONGITUDE
+import com.capstone.sifood.viewmodel.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FoodDetailActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityFoodDetailBinding
@@ -36,6 +43,31 @@ class FoodDetailActivity : AppCompatActivity() {
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
+        }
+        val factory = ViewModelFactory.getInstance(this)
+        val detailViewModel = ViewModelProvider(this,factory)[FoodDetailViewModel::class.java]
+        var checked : Boolean
+        detailViewModel.button.observe(this,{
+            if(it)
+            {
+                binding.btnDetailFavorite.background = getDrawable(R.drawable.ic_baseline_favorite_24)
+            }
+            else
+            {
+                binding.btnDetailFavorite.background = getDrawable(R.drawable.ic_baseline_favorite_border_24)
+            }
+        })
+        binding.btnDetailFavorite.setOnClickListener {
+            checked = binding.btnDetailFavorite.isChecked
+            if(!checked)
+            {
+
+                foodDetail?.let { it1 -> detailViewModel.insert(it1) }
+            }
+            else
+            {
+                detailViewModel.delete(foodDetail?.id.toString())
+            }
         }
     }
 

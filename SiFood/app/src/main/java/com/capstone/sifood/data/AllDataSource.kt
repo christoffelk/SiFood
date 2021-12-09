@@ -9,7 +9,7 @@ import com.capstone.sifood.data.remote.response.ArticlesItem
 interface AllDataSource {
     fun getPopularFood(): List<Food>
     fun getFoodByLocation(location: String): List<Food>
-    fun getFavoriteFood():List<Food>
+    fun getFavoriteFood():LiveData<List<Food>>
     fun insertFavoriteFood(data: Food)
     fun deleteFavoriteFood(id: String)
     fun getArticle(): LiveData<Resource<List<Article>>>
