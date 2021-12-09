@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiFood">
         <activity
+            android:name=".ui.setting.SettingActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".ui.allfood.AllFoodActivity"
             android:exported="true" />
         <activity
@@ -25,9 +29,6 @@
             android:name=".ui.foodDetail.FoodDetailActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity android:name=".ui.setting.SettingActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
