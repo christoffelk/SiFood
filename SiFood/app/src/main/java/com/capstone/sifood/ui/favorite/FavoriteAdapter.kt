@@ -1,11 +1,13 @@
 package com.capstone.sifood.ui.favorite
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ItemlistBinding
+import com.capstone.sifood.ui.foodDetail.FoodDetailActivity
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
     private val listUsers = ArrayList<Food>()
@@ -22,6 +24,11 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
                     .load(food.imgUrl)
                     .into(imageView)
                 namaMakanan.text = food.name
+            }
+            itemView.setOnClickListener{
+                val intent = Intent(itemView.context, FoodDetailActivity::class.java)
+                intent.putExtra(FoodDetailActivity.FOOD,food)
+                itemView.context.startActivity(intent)
             }
         }
     }
