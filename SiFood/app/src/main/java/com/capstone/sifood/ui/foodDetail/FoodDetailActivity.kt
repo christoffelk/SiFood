@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.sifood.MainActivity
-import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityFoodDetailBinding
 import com.capstone.sifood.other.Constant.LATITUDE
@@ -47,16 +46,13 @@ class FoodDetailActivity : AppCompatActivity() {
         val detailViewModel = ViewModelProvider(this, factory)[FoodDetailViewModel::class.java]
         var checked = false
         CoroutineScope(Dispatchers.IO).launch {
-            val check =detailViewModel.check(foodDetail?.id.toString())
+            val check = detailViewModel.check(foodDetail?.id.toString())
             withContext(Dispatchers.Main)
             {
-                if(check)
-                {
+                if (check) {
                     binding.btnDetailFavorite.isChecked = true
                     checked = true
-                }
-                else
-                {
+                } else {
                     binding.btnDetailFavorite.isChecked = false
                     checked = false
                 }

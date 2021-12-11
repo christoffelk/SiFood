@@ -16,20 +16,19 @@
             android:layout_height="230dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/dots_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
             android:layout_marginStart="16dp"
+            android:gravity="start|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_pager">
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/view_pager" />
 
         <TextView
             android:id="@+id/textView"
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="Makanan Terpopuler"
+            android:text="@string/makanan_terpopuler"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/dots_indicator" />
@@ -48,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Makanan Tradisional yang sudah terkenal"
-            android:textSize="10sp"
+            android:text="@string/makanan_tradisional_yang_sudah_terkenal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -57,14 +56,13 @@
             android:id="@+id/btn_1"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/button_bg"
-            android:text="Lihat Semua >"
+            android:text="@string/lihat_semua"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/view_pager" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_populer"
@@ -81,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Makanan yang berasal \ndari daerahmu "
+            android:text="@string/makanan_yang_berasal_ndari_daerahmu"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_populer" />
@@ -92,8 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Makanan tradisional yang berasal dari daerahmu"
-            android:textSize="10sp"
+            android:text="@string/makanan_tradisional_yang_berasal_dari_daerahmu"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -104,9 +102,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/button_bg"
-            android:text="Lihat Semua >"
+            android:text="@string/lihat_semua"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
@@ -118,14 +115,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             tools:listitem="@layout/itemlist" />
+
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="invisible"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

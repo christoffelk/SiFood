@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.sifood.data.firebase.entities.Article
-import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.databinding.ArticleListBinding
 import com.capstone.sifood.ui.articledetail.ArticleDetailActivity
 

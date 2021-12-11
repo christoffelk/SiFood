@@ -11,7 +11,7 @@ import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ItemlistBinding
 import com.capstone.sifood.ui.foodDetail.FoodDetailActivity
 
-class AllFoodAdapter: RecyclerView.Adapter<AllFoodAdapter.ViewHolder>() {
+class AllFoodAdapter : RecyclerView.Adapter<AllFoodAdapter.ViewHolder>() {
     private val listFoods = ArrayList<Food>()
     fun addItem(foods: ArrayList<Food>) {
         listFoods.clear()
@@ -26,13 +26,14 @@ class AllFoodAdapter: RecyclerView.Adapter<AllFoodAdapter.ViewHolder>() {
                     .load(food.imgUrl)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
-                            .error(R.drawable.ic_error))
+                            .error(R.drawable.ic_error)
+                    )
                     .into(imageView)
                 namaMakanan.text = food.name
             }
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 val intent = Intent(itemView.context, FoodDetailActivity::class.java)
-                intent.putExtra(FoodDetailActivity.FOOD,food)
+                intent.putExtra(FoodDetailActivity.FOOD, food)
                 itemView.context.startActivity(intent)
             }
         }

@@ -25,9 +25,9 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
                     .into(imageView)
                 namaMakanan.text = food.name
             }
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 val intent = Intent(itemView.context, FoodDetailActivity::class.java)
-                intent.putExtra(FoodDetailActivity.FOOD,food)
+                intent.putExtra(FoodDetailActivity.FOOD, food)
                 itemView.context.startActivity(intent)
             }
         }

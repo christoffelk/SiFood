@@ -1,6 +1,5 @@
 package com.capstone.sifood.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -36,7 +35,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         homeViewModel =
             ViewModelProvider(this)[HomeViewModel::class.java]
 
@@ -49,11 +48,12 @@ class HomeFragment : Fragment() {
         homeAdapter = HomeAdapter()
         secHomeAdapter = HomeAdapter()
         binding.loading.visibility = View.VISIBLE
-        homeViewModel.home.observe(viewLifecycleOwner,{
+        homeViewModel.home.observe(viewLifecycleOwner, {
             homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvPopuler)
             {
-                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = homeAdapter
                 setHasFixedSize(true)
             }
@@ -77,21 +77,23 @@ class HomeFragment : Fragment() {
             secHomeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
-                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = secHomeAdapter
                 setHasFixedSize(true)
             }
         })
 
         homeViewModel.imgCarousel.observe(viewLifecycleOwner, {
-            binding.loading.visibility= View.GONE
+            binding.loading.visibility = View.GONE
             list.addAll(it)
             carouselAdapter = CarouselAdapter(list)
             binding.viewPager.adapter = carouselAdapter
 
             setIndicator()
 
-            binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            binding.viewPager.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     selectedDots(position)
                     super.onPageSelected(position)
@@ -102,17 +104,27 @@ class HomeFragment : Fragment() {
     }
 
     private fun selectedDots(position: Int) {
-        for (i in 0 until list.size){
-            if (i == position){
-                dots[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_primary))
+        for (i in 0 until list.size) {
+            if (i == position) {
+                dots[i].setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.design_default_color_primary
+                    )
+                )
             } else {
-                dots[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary))
+                dots[i].setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.design_default_color_secondary
+                    )
+                )
             }
         }
     }
 
     private fun setIndicator() {
-        for (i in 0 until list.size){
+        for (i in 0 until list.size) {
             dots.add(TextView(context))
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 dots[i].text = Html.fromHtml("&#9679", Html.FROM_HTML_MODE_LEGACY).toString()

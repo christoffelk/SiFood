@@ -26,13 +26,14 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
                     .load(food.imgUrl)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error))
+                            .error(R.drawable.ic_error)
+                    )
                     .into(imageView)
                 namaMakanan.text = food.name
             }
-            itemView.setOnClickListener{
-                val intent = Intent(itemView.context,FoodDetailActivity::class.java)
-                intent.putExtra(FoodDetailActivity.FOOD,food)
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, FoodDetailActivity::class.java)
+                intent.putExtra(FoodDetailActivity.FOOD, food)
                 itemView.context.startActivity(intent)
             }
         }
@@ -54,7 +55,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (listUsers.size < 10){
+        return if (listUsers.size < 10) {
             listUsers.size
         } else {
             10

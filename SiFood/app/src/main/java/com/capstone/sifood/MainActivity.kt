@@ -1,13 +1,11 @@
 package com.capstone.sifood
 
 import android.content.Intent
-import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
 
         locationPicker = LocationPicker(this)
-        println(locationPicker.getLastLocation{ name, long, lat ->
+        println(locationPicker.getLastLocation { name, long, lat ->
             LOCATION_NAME = name
             LONGITUDE = long
             LATITUDE = lat
@@ -59,32 +57,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId)
-        {
-            R.id.action_settings ->
-            {
-                val intent =Intent(this,SettingActivity::class.java)
+        when (item.itemId) {
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
             }
         }
         return true
     }
+
     override fun onStart() {
         super.onStart()
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        when(sharedPreferences.getString("key_dark_mode",""))
-        {
+        when (sharedPreferences.getString("key_dark_mode", "")) {
             "auto" -> updateTheme(0)
             "off" -> updateTheme(1)
             "on" -> updateTheme(2)
         }
     }
+
     private fun updateTheme(mode: Int): Boolean {
         AppCompatDelegate.setDefaultNightMode(mode)
         return true

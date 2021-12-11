@@ -9,10 +9,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import java.util.*
 import android.app.Activity
-import android.content.ComponentCallbacks
-import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -23,7 +20,7 @@ class LocationPicker(private val context: Context) {
         LocationServices.getFusedLocationProviderClient(context as Activity)
 
 
-    private fun CheckPermission():Boolean {
+    private fun checkPermission():Boolean {
         if(
             ActivityCompat.checkSelfPermission(
                 context,
@@ -40,7 +37,7 @@ class LocationPicker(private val context: Context) {
 
     }
 
-    private fun RequestPermission(){
+    private fun requestPermission(){
         ActivityCompat.requestPermissions(
             context as Activity,
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION),
@@ -50,10 +47,10 @@ class LocationPicker(private val context: Context) {
 
     @SuppressLint("MissingPermission")
     fun getLastLocation(callbacks: (String, String, String)->Unit){
-        if(CheckPermission()){
+        if(checkPermission()){
             if(isLocationEnabled()){
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
-                    var location: Location? = task.result
+                    val location: Location? = task.result
                     if(location == null){
                         Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
                     }else{
@@ -68,7 +65,7 @@ class LocationPicker(private val context: Context) {
                 Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
             }
         }else{
-            RequestPermission()
+            requestPermission()
         }
     }
 
@@ -82,8 +79,8 @@ class LocationPicker(private val context: Context) {
     private fun getLocationName(lat: Double, long: Double): String? {
         return try {
             val geoCoder = Geocoder(context)
-            val Adress = geoCoder.getFromLocation(lat,long,1)
-            Adress[0].adminArea.toString()
+            val adress = geoCoder.getFromLocation(lat,long,1)
+            adress[0].adminArea.toString()
         } catch (e:Exception){
             "Jawa Timur"
         }

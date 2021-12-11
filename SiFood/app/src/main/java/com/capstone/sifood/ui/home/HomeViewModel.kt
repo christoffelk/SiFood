@@ -38,7 +38,7 @@ class HomeViewModel : ViewModel() {
             .get()
             .addOnSuccessListener { imgs ->
                 val imgRes = imgs.toObjects(Image::class.java)
-                var result = ArrayList<Image>()
+                val result = ArrayList<Image>()
 
                 imgRes.forEach {
                     result.add(

@@ -28,7 +28,7 @@ class FavoriteFragment : Fragment() {
     ): View {
         val factory = ViewModelFactory.getInstance(requireContext())
         favoriteViewModel =
-            ViewModelProvider(this,factory)[FavoriteViewModel::class.java]
+            ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 
@@ -38,7 +38,7 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favoriteAdapter = FavoriteAdapter()
-        favoriteViewModel.getFavorite().observe(viewLifecycleOwner,{
+        favoriteViewModel.getFavorite().observe(viewLifecycleOwner, {
             favoriteAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvFavorite)
             {

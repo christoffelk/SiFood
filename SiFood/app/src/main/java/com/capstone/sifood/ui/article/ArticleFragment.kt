@@ -40,17 +40,15 @@ class ArticleFragment : Fragment() {
         articleAdapter = ArticleAdapter()
 
         articleViewModel.getArticle().observe(viewLifecycleOwner, {
-            if(it != null)
-            {
-                when(it.status)
-                {
+            if (it != null) {
+                when (it.status) {
                     Status.LOADING -> binding.loading.visibility = View.VISIBLE
                     Status.ERROR -> {
                         binding.loading.visibility = View.GONE
-                        Toast.makeText(context,"Tidak dapat memuat data",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+                            .show()
                     }
-                    Status.SUCCESS ->
-                    {
+                    Status.SUCCESS -> {
                         binding.loading.visibility = View.GONE
                         it.data?.let { it1 -> articleAdapter.addItem(it1) }
                     }
