@@ -3,6 +3,7 @@ package com.capstone.sifood.data
 import androidx.lifecycle.LiveData
 import com.capstone.sifood.data.firebase.database.FirebaseDatabase
 import com.capstone.sifood.data.firebase.entities.Article
+import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.LocalDataSource
 import com.capstone.sifood.data.local.entities.Food
@@ -18,12 +19,12 @@ class Repository private constructor(
     private val firebaseDatabase: FirebaseDatabase,
     private val appExecutors: AppExecutors
 ): AllDataSource{
-    override fun getPopularFood(): List<Food> {
+    override fun getPopularFood(): LiveData<List<Food>> {
         return firebaseDatabase.getPopularFood()
 
     }
 
-    override fun getFoodByLocation(location: String): List<Food> {
+    override fun getFoodByLocation(location: String): LiveData<List<Food>> {
         return firebaseDatabase.getFoodByLocation(location)
     }
 
@@ -35,6 +36,10 @@ class Repository private constructor(
         return appExecutors.diskIO().execute {
             localDataSource.insertFood(data)
         }
+    }
+
+    override fun getImageSlider(): LiveData<List<Image>> {
+        return firebaseDatabase.getImageSlider()
     }
 
     override fun deleteFavoriteFood(id: String) {

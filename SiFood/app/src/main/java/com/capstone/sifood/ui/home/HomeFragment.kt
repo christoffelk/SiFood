@@ -18,6 +18,7 @@ import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.ui.allfood.AllFoodActivity
+import com.capstone.sifood.viewmodel.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -36,8 +37,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val factory = ViewModelFactory.getInstance(requireContext())
         homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
+            ViewModelProvider(this,factory)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,7 +50,7 @@ class HomeFragment : Fragment() {
         homeAdapter = HomeAdapter()
         secHomeAdapter = HomeAdapter()
         binding.loading.visibility = View.VISIBLE
-        homeViewModel.home.observe(viewLifecycleOwner, {
+        homeViewModel.getPopularFood().observe(viewLifecycleOwner,{
             homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvPopuler)
             {
@@ -72,8 +74,7 @@ class HomeFragment : Fragment() {
                     startActivity(it)
                 }
         }
-
-        homeViewModel.foodByLocation.observe(viewLifecycleOwner, {
+        homeViewModel.getFoodByLocation().observe(viewLifecycleOwner,{
             secHomeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvDaerah)
             {
@@ -83,8 +84,7 @@ class HomeFragment : Fragment() {
                 setHasFixedSize(true)
             }
         })
-
-        homeViewModel.imgCarousel.observe(viewLifecycleOwner, {
+        homeViewModel.getImageSlider().observe(viewLifecycleOwner,{
             binding.loading.visibility = View.GONE
             list.addAll(it)
             carouselAdapter = CarouselAdapter(list)
@@ -100,7 +100,6 @@ class HomeFragment : Fragment() {
                 }
             })
         })
-
     }
 
     private fun selectedDots(position: Int) {

@@ -8,6 +8,7 @@ import com.capstone.sifood.di.Injection
 import com.capstone.sifood.ui.article.ArticleViewModel
 import com.capstone.sifood.ui.favorite.FavoriteViewModel
 import com.capstone.sifood.ui.foodDetail.FoodDetailViewModel
+import com.capstone.sifood.ui.home.HomeViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -24,6 +25,10 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             modelClass.isAssignableFrom(FoodDetailViewModel::class.java) ->
             {
                 return FoodDetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) ->
+            {
+                return HomeViewModel(repository) as T
             }
             else -> {
                 throw Throwable("Unknown Viewmodel Class : ${modelClass.name}")
