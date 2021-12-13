@@ -14,4 +14,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/emty_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/empty_image"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/empty_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="Belum ada Makanan\nFavoritmu"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emty_image"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,12 +39,18 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         favoriteAdapter = FavoriteAdapter()
         favoriteViewModel.getFavorite().observe(viewLifecycleOwner, {
-            favoriteAdapter.addItem(it as ArrayList<Food>)
-            with(binding.rvFavorite)
-            {
-                layoutManager = GridLayoutManager(requireContext(), 2)
-                setHasFixedSize(true)
-                adapter = favoriteAdapter
+
+            if(it.isNotEmpty()){
+                favoriteAdapter.addItem(it as ArrayList<Food>)
+                with(binding.rvFavorite)
+                {
+                    layoutManager = GridLayoutManager(requireContext(), 2)
+                    setHasFixedSize(true)
+                    adapter = favoriteAdapter
+                }
+            } else {
+                binding.emtyImage.visibility = View.VISIBLE
+                binding.emptyInformation.visibility = View.VISIBLE
             }
         })
     }
