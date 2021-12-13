@@ -6,6 +6,7 @@ import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.other.Constant.FOOD_COLLECTION
 import com.capstone.sifood.other.Constant.IMAGE_COLLECTION
+import com.capstone.sifood.other.EspressoIdlingResource
 import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.Exception
 
@@ -21,6 +22,7 @@ class FirebaseDatabase {
 
     fun getPopularFood(): LiveData<List<Food>>{
         val food = MutableLiveData<List<Food>>()
+        EspressoIdlingResource.increment()
         return try {
             /*food.value = foodCollection
                 .whereEqualTo("popular", true)
@@ -45,6 +47,7 @@ class FirebaseDatabase {
                         )
                     }
                     food.value = result
+                    EspressoIdlingResource.decrement()
                 }
             food
         } catch (e: Exception) {
@@ -55,6 +58,7 @@ class FirebaseDatabase {
 
     fun getFoodByLocation(location: String): LiveData<List<Food>>{
         val food = MutableLiveData<List<Food>>()
+        EspressoIdlingResource.increment()
         return try {
             /*food.value = foodCollection
                 .whereEqualTo("province", location)
@@ -79,6 +83,7 @@ class FirebaseDatabase {
                         )
                     }
                     food.value = result
+                    EspressoIdlingResource.decrement()
                 }
             food
         } catch (e: Exception) {
@@ -87,6 +92,7 @@ class FirebaseDatabase {
     }
     fun getImageSlider() : LiveData<List<Image>>{
         val food = MutableLiveData<List<Image>>()
+        EspressoIdlingResource.increment()
         imgCollection
             .get()
             .addOnSuccessListener { imgs ->
@@ -102,6 +108,7 @@ class FirebaseDatabase {
                     )
                 }
                 food.value = result
+                EspressoIdlingResource.decrement()
             }
         return food
     }

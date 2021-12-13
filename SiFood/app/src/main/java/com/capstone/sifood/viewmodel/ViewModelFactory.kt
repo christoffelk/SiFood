@@ -33,7 +33,6 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             else -> {
                 throw Throwable("Unknown Viewmodel Class : ${modelClass.name}")
             }
-
         }
     }
     companion object{

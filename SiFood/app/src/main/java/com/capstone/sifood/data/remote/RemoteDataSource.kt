@@ -7,6 +7,7 @@ import com.capstone.sifood.data.remote.api.ApiConfig
 import com.capstone.sifood.data.remote.response.ApiResponse
 import com.capstone.sifood.data.remote.response.ArticlesItem
 import com.capstone.sifood.data.remote.response.NewsResponse
+import com.capstone.sifood.other.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +28,7 @@ class RemoteDataSource {
     }
 
     fun getNews(): LiveData<ApiResponse<List<ArticlesItem>>> {
-
+        EspressoIdlingResource.increment()
         val resultNews = MutableLiveData<ApiResponse<List<ArticlesItem>>>()
 
         val client = ApiConfig.getApiSevice().getNews(Q, SHORTBY, API_KEY)
@@ -37,12 +38,14 @@ class RemoteDataSource {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         resultNews.value = ApiResponse.success(responseBody.articles)
+                        EspressoIdlingResource.decrement()
                     }
                 }
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                 Log.e("RemoteDataSource", "getDetailTvShow onFailure : ${t.message}")
+                EspressoIdlingResource.decrement()
             }
 
         })
