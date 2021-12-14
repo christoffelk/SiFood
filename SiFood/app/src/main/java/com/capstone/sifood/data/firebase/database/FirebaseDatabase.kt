@@ -65,7 +65,7 @@ class FirebaseDatabase {
                 .get()
                 .result.toObjects(Food::class.java)*/
             foodCollection
-                .whereEqualTo("province", location)
+                .whereEqualTo("provinceEng", location)
                 .get()
                 .addOnSuccessListener { foods ->
                     val resultFood = foods.toObjects(Food::class.java)
