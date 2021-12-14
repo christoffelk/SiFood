@@ -13,8 +13,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SiFood"
-        >
+        android:theme="@style/Theme.SiFood">
+        <activity
+            android:name=".ui.nointernet.NoInternetActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.setting.SettingActivity"
             android:exported="false"
@@ -43,8 +45,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="@string/app_name"
-        />
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

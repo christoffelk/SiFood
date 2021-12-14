@@ -1,9 +1,14 @@
 package com.capstone.sifood
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
@@ -16,6 +21,7 @@ import com.capstone.sifood.other.Constant.LATITUDE
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.other.LocationPicker
+import com.capstone.sifood.ui.nointernet.NoInternetActivity
 import com.capstone.sifood.ui.setting.SettingActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
@@ -27,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var locationPicker: LocationPicker
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (!isOnline(this)){
+            Intent(this, NoInternetActivity::class.java).let {
+                startActivity(it)
+                finish()
+            }
+        }
 
 
         locationPicker = LocationPicker(this)
@@ -85,6 +99,26 @@ class MainActivity : AppCompatActivity() {
     private fun updateTheme(mode: Int): Boolean {
         AppCompatDelegate.setDefaultNightMode(mode)
         return true
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capa =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capa != null) {
+                if (capa.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    return true
+                } else if (capa.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    return true
+                } else if (capa.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
 }
