@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
             LATITUDE = lat
         })
 
+        println("Data " + LOCATION_NAME)
+
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)

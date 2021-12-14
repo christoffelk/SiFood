@@ -24,10 +24,6 @@ class FirebaseDatabase {
         val food = MutableLiveData<List<Food>>()
         EspressoIdlingResource.increment()
         return try {
-            /*food.value = foodCollection
-                .whereEqualTo("popular", true)
-                .get()
-                .result.toObjects(Food::class.java)*/
             foodCollection
                 .whereEqualTo("popular", true)
                 .get()
@@ -42,7 +38,10 @@ class FirebaseDatabase {
                                 name = it.name,
                                 province = it.province,
                                 description = it.description,
-                                popular = it.popular
+                                popular = it.popular,
+                                provinceEng = it.provinceEng,
+                                contentLicence = it.contentLicence,
+                                imageLicence = it.imageLicence
                             )
                         )
                     }
@@ -78,7 +77,10 @@ class FirebaseDatabase {
                                 name = it.name,
                                 province = it.province,
                                 description = it.description,
-                                popular = it.popular
+                                popular = it.popular,
+                                provinceEng = it.provinceEng,
+                                contentLicence = it.contentLicence,
+                                imageLicence = it.imageLicence
                             )
                         )
                     }

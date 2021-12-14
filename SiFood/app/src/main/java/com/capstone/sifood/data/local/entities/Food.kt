@@ -28,4 +28,13 @@ data class Food(
     @ColumnInfo(name = "popular")
     var popular: Boolean? = null,
 
+    @ColumnInfo(name = "provinceEng")
+    var provinceEng:String? = null,
+
+    @ColumnInfo(name = "imageLicence")
+    var imageLicence: String? = null,
+
+    @ColumnInfo(name = "contentLicance")
+    var contentLicence: String? = null
+
 ) : Parcelable
