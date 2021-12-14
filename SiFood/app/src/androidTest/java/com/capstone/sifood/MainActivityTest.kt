@@ -46,7 +46,7 @@ class MainActivityTest {
         onView(withId(R.id.navigation_notifications)).perform(ViewActions.click())
         onView(withId(R.id.rv_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_favorite)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-            1,
+            0,
             ViewActions.click()
         ))
         checkDetail()
