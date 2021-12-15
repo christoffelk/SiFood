@@ -15,4 +15,6 @@ interface AllDataSource {
     fun deleteFavoriteFood(id: String)
     fun checkFood(id: String): Boolean
     fun getArticle(): LiveData<Resource<List<Article>>>
+    fun getLastLocation(): LiveData<List<Double>>
+    fun getLocationName(lat: Double, long: Double): LiveData<String>
 }

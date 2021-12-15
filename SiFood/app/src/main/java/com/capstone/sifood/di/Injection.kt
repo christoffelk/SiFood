@@ -7,6 +7,7 @@ import com.capstone.sifood.data.local.LocalDataSource
 import com.capstone.sifood.data.local.room.FoodDatabase
 import com.capstone.sifood.data.remote.RemoteDataSource
 import com.capstone.sifood.other.AppExecutors
+import com.capstone.sifood.other.LocationPicker
 
 object Injection {
     fun provideRepository(context: Context) : Repository{
@@ -14,7 +15,8 @@ object Injection {
         val remoteDataSource = RemoteDataSource.getInstance()
         val localDataSource = LocalDataSource.getInstance(database.foodDao())
         val firebaseDatabase = FirebaseDatabase.getInstance()
+        val locationPicker = LocationPicker(context)
         val appExecutors = AppExecutors()
-        return Repository.getInstance(remoteDataSource, localDataSource, firebaseDatabase, appExecutors)
+        return Repository.getInstance(remoteDataSource, localDataSource, firebaseDatabase,locationPicker, appExecutors)
     }
 }

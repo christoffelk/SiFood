@@ -49,16 +49,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-        locationPicker = LocationPicker(this)
-        println(locationPicker.getLastLocation { name, long, lat ->
-            LOCATION_NAME = name
-            LONGITUDE = long
-            LATITUDE = lat
-        })
-
-        println("Data " + LOCATION_NAME)
-
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)

@@ -10,6 +10,9 @@ import android.location.LocationManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import android.app.Activity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.capstone.sifood.data.firebase.database.FirebaseDatabase
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -46,20 +49,29 @@ class LocationPicker(private val context: Context) {
     }
 
     @SuppressLint("MissingPermission")
-    fun getLastLocation(callbacks: (String, String, String)->Unit){
+    fun getLastLocation(): LiveData<List<Double>>{
+        val result = MutableLiveData<List<Double>>()
         if(checkPermission()){
             if(isLocationEnabled()){
-                fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
-                    val location: Location? = task.result
-                    if(location == null){
-                        Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
-                    }else{
-                        val longitude = location.longitude.toString()
-                        val latitude = location.latitude.toString()
-                        getLocationName(location.latitude,location.longitude)?.let {
-                            callbacks(it,longitude,latitude)
+                return try {
+                    fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
+                        val location: Location? = task.result
+                        val koordinat = ArrayList<Double>()
+                        if(location == null){
+                            Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
+                        }else{
+                            val longitude = location.longitude
+                            val latitude = location.latitude
+                            koordinat.add(latitude)
+                            koordinat.add(longitude)
+
+                            result.value = koordinat
+                            result
                         }
                     }
+                    result
+                } catch (e: Exception){
+                    result
                 }
             }else{
                 Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
@@ -67,6 +79,7 @@ class LocationPicker(private val context: Context) {
         }else{
             requestPermission()
         }
+        return result
     }
 
     private fun isLocationEnabled(): Boolean {
@@ -75,16 +88,27 @@ class LocationPicker(private val context: Context) {
             LocationManager.NETWORK_PROVIDER)
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun getLocationName(lat: Double, long: Double): String? {
+    fun getLocationName(lat: Double, long: Double): LiveData<String> {
+        val locationName = MutableLiveData<String>()
         return try {
             val geoCoder = Geocoder(context)
             val adress = geoCoder.getFromLocation(lat,long,1)
-            adress[0].adminArea.toString()
-        } catch (e:Exception){
-            "Jawa Timur"
+            locationName.value = adress[0].adminArea.toString()
+            locationName
+        }catch (e: Exception){
+            locationName
         }
+    }
 
+    companion object{
+        @SuppressLint("StaticFieldLeak")
+        @Volatile
+        private var instance : LocationPicker? = null
 
+        fun getInstance(context: Context) : LocationPicker =
+            instance ?: synchronized(this)
+            {
+                instance ?: LocationPicker(context)
+            }
     }
 }

@@ -74,16 +74,33 @@ class HomeFragment : Fragment() {
                     startActivity(it)
                 }
         }
-        homeViewModel.getFoodByLocation().observe(viewLifecycleOwner,{
-            secHomeAdapter.addItem(it as ArrayList<Food>)
-            with(binding.rvDaerah)
-            {
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = secHomeAdapter
-                setHasFixedSize(true)
-            }
+        // TODO: 15/12/21 Ini yang error
+//        homeViewModel.listFood.observe(viewLifecycleOwner,{
+//            secHomeAdapter.addItem(it as ArrayList<Food>)
+//            with(binding.rvDaerah)
+//            {
+//                layoutManager =
+//                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//                adapter = secHomeAdapter
+//                setHasFixedSize(true)
+//            }
+//        })
+        // TODO: 15/12/21 ini jalan. Tapi ga efisien gtu. kaya nested view model jadinya wkkwkwk 
+        homeViewModel.getLastLocation().observe(viewLifecycleOwner, {
+            homeViewModel.getLocationName(it[0],it[1]).observe(viewLifecycleOwner,{
+                homeViewModel.getFoodByLocation(it).observe(viewLifecycleOwner, {
+                    secHomeAdapter.addItem(it as ArrayList<Food>)
+                    with(binding.rvDaerah)
+                    {
+                        layoutManager =
+                            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        adapter = secHomeAdapter
+                        setHasFixedSize(true)
+                    }
+                })
+            })
         })
+
         homeViewModel.getImageSlider().observe(viewLifecycleOwner,{
             binding.loading.visibility = View.GONE
             list.addAll(it)
