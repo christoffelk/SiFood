@@ -17,6 +17,9 @@ import com.capstone.sifood.R
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
+import com.capstone.sifood.other.Constant.LATITUDE
+import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.ui.allfood.AllFoodActivity
 import com.capstone.sifood.viewmodel.ViewModelFactory
 
@@ -87,7 +90,10 @@ class HomeFragment : Fragment() {
 //        })
         // TODO: 15/12/21 ini jalan. Tapi ga efisien gtu. kaya nested view model jadinya wkkwkwk 
         homeViewModel.getLastLocation().observe(viewLifecycleOwner, {
+            LATITUDE = it[0].toString()
+            LONGITUDE = it[1].toString()
             homeViewModel.getLocationName(it[0],it[1]).observe(viewLifecycleOwner,{
+                LOCATION_NAME = it
                 homeViewModel.getFoodByLocation(it).observe(viewLifecycleOwner, {
                     secHomeAdapter.addItem(it as ArrayList<Food>)
                     with(binding.rvDaerah)
