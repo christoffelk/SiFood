@@ -5,7 +5,7 @@ object Constant {
     const val IMAGE_COLLECTION ="banner"
     var LONGITUDE = ""
     var LATITUDE = ""
-    var LOCATION_NAME = ""
+    var LOCATION_NAME = "Bali"
     const val PERMISSION_ID = 1010
 
 }

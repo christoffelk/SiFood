@@ -16,6 +16,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         repository.getLocationName(it[0], it[1])
     }
     val listFood: LiveData<List<Food>> = _locationName.switchMap {
+        LOCATION_NAME = it
         repository.getFoodByLocation(it)
     }
     fun getPopularFood() = repository.getPopularFood()

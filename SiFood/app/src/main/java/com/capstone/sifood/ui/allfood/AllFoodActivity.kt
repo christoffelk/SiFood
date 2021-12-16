@@ -10,6 +10,7 @@ import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.ActivityAllFoodBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
+import com.capstone.sifood.viewmodel.ViewModelFactory
 
 
 class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
@@ -27,19 +28,36 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setContentView(binding.root)
 
         allFoodAdapter = AllFoodAdapter()
-
-        viewModel = ViewModelProvider(this)[AllFoodViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this,factory)[AllFoodViewModel::class.java]
 
         val filter = intent.getStringExtra(FILTER).toString()
 
         when (filter) {
             "popular" -> {
                 binding.textResult.text = getString(R.string.GoInter)
+                viewModel.getPopularFood().observe(this,{
+                    allFoodAdapter.addItem(it as ArrayList<Food>)
+                    with(binding.rvAllFood) {
+                        layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
+                        setHasFixedSize(false)
+                        adapter = allFoodAdapter
+                    }
+                })
             }
             "location" -> {
                 binding.textResult.text = getString(R.string.Daerah) + LOCATION_NAME
+                viewModel.getFoodByLocation(LOCATION_NAME).observe(this,{
+                    allFoodAdapter.addItem(it as ArrayList<Food>)
+                    with(binding.rvAllFood) {
+                        layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
+                        setHasFixedSize(false)
+                        adapter = allFoodAdapter
+                    }
+                })
             }
         }
+
         viewModel.setData(filter)
 
         viewModel.data.observe(this, { data ->

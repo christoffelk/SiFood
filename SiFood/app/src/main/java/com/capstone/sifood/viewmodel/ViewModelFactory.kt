@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.sifood.data.Repository
 import com.capstone.sifood.di.Injection
+import com.capstone.sifood.ui.allfood.AllFoodViewModel
 import com.capstone.sifood.ui.article.ArticleViewModel
 import com.capstone.sifood.ui.favorite.FavoriteViewModel
 import com.capstone.sifood.ui.foodDetail.FoodDetailViewModel
@@ -29,6 +30,10 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             modelClass.isAssignableFrom(HomeViewModel::class.java) ->
             {
                 return HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(AllFoodViewModel::class.java) ->
+            {
+                return AllFoodViewModel(repository) as T
             }
             else -> {
                 throw Throwable("Unknown Viewmodel Class : ${modelClass.name}")
