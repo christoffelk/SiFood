@@ -62,6 +62,7 @@ class LocationPicker(private val context: Context) {
                         }else{
                             val longitude = location.longitude
                             val latitude = location.latitude
+                            println(koordinat)
                             koordinat.add(latitude)
                             koordinat.add(longitude)
 
@@ -79,6 +80,10 @@ class LocationPicker(private val context: Context) {
         }else{
             requestPermission()
         }
+        val temp  = ArrayList<Double>()
+        temp.addAll(listOf(3.3369733, 99.3423367))
+        result.value = temp
+        println(temp)
         return result
     }
 
