@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         FirebaseApp.initializeApp(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)

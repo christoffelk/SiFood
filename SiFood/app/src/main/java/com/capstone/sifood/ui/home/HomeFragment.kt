@@ -17,9 +17,6 @@ import com.capstone.sifood.R
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentHomeBinding
-import com.capstone.sifood.other.Constant.LATITUDE
-import com.capstone.sifood.other.Constant.LOCATION_NAME
-import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.ui.allfood.AllFoodActivity
 import com.capstone.sifood.viewmodel.ViewModelFactory
 
@@ -42,7 +39,7 @@ class HomeFragment : Fragment() {
     ): View {
         val factory = ViewModelFactory.getInstance(requireContext())
         homeViewModel =
-            ViewModelProvider(this,factory)[HomeViewModel::class.java]
+            ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,7 +50,7 @@ class HomeFragment : Fragment() {
         homeAdapter = HomeAdapter()
         secHomeAdapter = HomeAdapter()
         binding.loading.visibility = View.VISIBLE
-        homeViewModel.getPopularFood().observe(viewLifecycleOwner,{
+        homeViewModel.getPopularFood().observe(viewLifecycleOwner, {
             homeAdapter.addItem(it as ArrayList<Food>)
             with(binding.rvPopuler)
             {
@@ -77,37 +74,21 @@ class HomeFragment : Fragment() {
                     startActivity(it)
                 }
         }
-        // TODO: 15/12/21 Ini yang error
-//        homeViewModel.listFood.observe(viewLifecycleOwner,{
-//            secHomeAdapter.addItem(it as ArrayList<Food>)
-//            with(binding.rvDaerah)
-//            {
-//                layoutManager =
-//                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//                adapter = secHomeAdapter
-//                setHasFixedSize(true)
-//            }
-//        })
-        // TODO: 15/12/21 ini jalan. Tapi ga efisien gtu. kaya nested view model jadinya wkkwkwk 
-        homeViewModel.getLastLocation().observe(viewLifecycleOwner, {
-            LATITUDE = it[0].toString()
-            LONGITUDE = it[1].toString()
-            homeViewModel.getLocationName(it[0],it[1]).observe(viewLifecycleOwner,{
-                LOCATION_NAME = it
-                homeViewModel.getFoodByLocation(it).observe(viewLifecycleOwner, {
-                    secHomeAdapter.addItem(it as ArrayList<Food>)
-                    with(binding.rvDaerah)
-                    {
-                        layoutManager =
-                            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                        adapter = secHomeAdapter
-                        setHasFixedSize(true)
-                    }
-                })
-            })
+        homeViewModel.listFood.observe(viewLifecycleOwner, {
+            secHomeAdapter.addItem(it as ArrayList<Food>)
+            with(binding.rvDaerah)
+            {
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = secHomeAdapter
+                setHasFixedSize(true)
+            }
         })
 
-        homeViewModel.getImageSlider().observe(viewLifecycleOwner,{
+
+
+
+        homeViewModel.getImageSlider().observe(viewLifecycleOwner, {
             binding.loading.visibility = View.GONE
             list.addAll(it)
             carouselAdapter = CarouselAdapter(list)
