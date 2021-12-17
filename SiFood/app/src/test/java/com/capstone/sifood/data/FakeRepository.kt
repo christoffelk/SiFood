@@ -12,11 +12,13 @@ import com.capstone.sifood.data.remote.RemoteDataSource
 import com.capstone.sifood.data.remote.response.ApiResponse
 import com.capstone.sifood.data.remote.response.ArticlesItem
 import com.capstone.sifood.other.AppExecutors
+import com.capstone.sifood.other.LocationPicker
 
 class FakeRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val firebaseDatabase: FirebaseDatabase,
+    private val locationPicker: LocationPicker,
     private val appExecutors: AppExecutors
 ): AllDataSource{
     override fun getPopularFood(): LiveData<List<Food>> {
@@ -79,5 +81,13 @@ class FakeRepository(
             }
 
         }.asLiveData()
+    }
+
+    override fun getLastLocation(): LiveData<List<Double>> {
+       return locationPicker.getLastLocation()
+    }
+
+    override fun getLocationName(lat: Double, long: Double): LiveData<String> {
+        return locationPicker.getLocationName(lat, long)
     }
 }

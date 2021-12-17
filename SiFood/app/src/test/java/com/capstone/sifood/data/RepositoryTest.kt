@@ -10,6 +10,7 @@ import com.capstone.sifood.data.remote.RemoteDataSource
 import com.capstone.sifood.other.AppExecutors
 import com.capstone.sifood.other.DataDummy
 import com.capstone.sifood.other.LiveDataTestUtil
+import com.capstone.sifood.other.LocationPicker
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.*
 import org.junit.Rule
@@ -25,8 +26,8 @@ class RepositoryTest{
     private val local = mock(LocalDataSource::class.java)
     private val firebaseDatabase = mock(FirebaseDatabase::class.java)
     private val appExecutors = mock(AppExecutors::class.java)
-
-    private val repository = FakeRepository(remote, local,firebaseDatabase, appExecutors)
+    private val localPicker = mock(LocationPicker::class.java)
+    private val repository = FakeRepository(remote, local,firebaseDatabase,localPicker, appExecutors)
 
     @Test
     fun getPopularFood()
