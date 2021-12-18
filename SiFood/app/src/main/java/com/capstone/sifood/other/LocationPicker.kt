@@ -53,7 +53,7 @@ class LocationPicker(private val context: Context) {
         val result = MutableLiveData<List<Double>>()
         if(checkPermission()){
             if(isLocationEnabled()){
-                return try {
+                try {
                     fusedLocationProviderClient.lastLocation.addOnCompleteListener {task->
                         val location: Location? = task.result
                         val koordinat = ArrayList<Double>()
@@ -62,18 +62,16 @@ class LocationPicker(private val context: Context) {
                         }else{
                             val longitude = location.longitude
                             val latitude = location.latitude
-                            println(koordinat)
                             koordinat.add(latitude)
                             koordinat.add(longitude)
-
+                            println("Koordinat: "+koordinat)
                             result.value = koordinat
-                            result
                         }
                     }
-                    result
                 } catch (e: Exception){
-                    result
+                    println(e)
                 }
+                return result
             }else{
                 Toast.makeText(context as Activity,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
             }
@@ -83,7 +81,7 @@ class LocationPicker(private val context: Context) {
         val temp  = ArrayList<Double>()
         temp.addAll(listOf(3.3369733, 99.3423367))
         result.value = temp
-        println(temp)
+        println("tempt: "+temp)
         return result
     }
 
@@ -101,6 +99,7 @@ class LocationPicker(private val context: Context) {
             locationName.value = adress[0].adminArea.toString()
             locationName
         }catch (e: Exception){
+            locationName.value = "Jawa Timur"
             locationName
         }
     }

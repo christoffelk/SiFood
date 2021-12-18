@@ -84,7 +84,8 @@ class Repository private constructor(
     }
 
     override fun getLastLocation(): LiveData<List<Double>> {
-        return locationPicker.getLastLocation()
+        val location = locationPicker.getLastLocation()
+        return location
     }
 
     override fun getLocationName(lat: Double, long: Double): LiveData<String> {
