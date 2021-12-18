@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import com.capstone.sifood.databinding.ActivityRegisterBinding
 import com.capstone.sifood.ui.login.LoginActivity
@@ -47,9 +48,12 @@ class RegisterActivity : AppCompatActivity() {
                         finish()
                     }
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    val message = task.exception.toString().split(":").toTypedArray()[1]
+
+                    with(binding.tvAlert){
+                        text = message
+                        visibility = View.VISIBLE
+                    }
                 }
             }
     }

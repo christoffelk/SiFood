@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.capstone.sifood.MainActivity
 import com.capstone.sifood.R
@@ -49,9 +50,12 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     }
                 } else {
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    val message = task.exception.toString().split(":").toTypedArray()[1]
+
+                    with(binding.tvAlert){
+                        text = message
+                        visibility = View.VISIBLE
+                    }
                 }
             }
     }
