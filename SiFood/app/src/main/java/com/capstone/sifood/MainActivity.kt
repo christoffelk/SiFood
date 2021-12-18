@@ -21,10 +21,12 @@ import com.capstone.sifood.other.Constant.LATITUDE
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.other.LocationPicker
+import com.capstone.sifood.ui.login.LoginActivity
 import com.capstone.sifood.ui.nointernet.NoInternetActivity
 import com.capstone.sifood.ui.setting.SettingActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,15 +35,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var locationPicker: LocationPicker
 
+    private lateinit var auth: FirebaseAuth
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        FirebaseApp.initializeApp(this)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
 
         if (!isOnline(this)){
             Intent(this, NoInternetActivity::class.java).let {
@@ -79,6 +83,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> {
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
+            }
+            R.id.action_logout -> {
+                auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
         return true

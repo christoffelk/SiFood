@@ -21,7 +21,7 @@
         android:layout_marginTop="200dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tf_username"
+        android:id="@+id/tf_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tf_value_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -51,9 +52,10 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tf_username">
+        app:layout_constraintTop_toBottomOf="@+id/tf_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tf_value_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -78,7 +80,10 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintVertical_bias="0.739">
 
         <TextView
             android:layout_width="wrap_content"

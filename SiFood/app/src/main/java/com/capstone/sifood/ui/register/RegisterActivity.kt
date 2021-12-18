@@ -1,12 +1,60 @@
 package com.capstone.sifood.ui.register
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.capstone.sifood.R
+import android.util.Log
+import android.util.Patterns
+import android.widget.Toast
+import com.capstone.sifood.databinding.ActivityRegisterBinding
+import com.capstone.sifood.ui.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
+
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
+
+        binding.btnLogin.setOnClickListener {
+            val email = binding.tfValueEmail.text.toString().trim()
+            val password = binding.tfValuePassword.text.toString().trim()
+
+            // TODO: 18/12/21 : validasi email dan password
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                binding.tfValueEmail.error = "Email tidak Valid"
+                binding.tfValueEmail.requestFocus()
+                return@setOnClickListener
+            }
+
+            register(email, password)
+        }
+    }
+
+    private fun register(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Intent(this, LoginActivity::class.java).let {
+                        startActivity(it)
+                        finish()
+                    }
+                } else {
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    companion object{
+        const val TAG = "Register"
     }
 }
