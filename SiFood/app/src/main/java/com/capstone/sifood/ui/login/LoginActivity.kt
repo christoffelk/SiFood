@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.capstone.sifood.MainActivity
 import com.capstone.sifood.R
 import com.capstone.sifood.databinding.ActivityLoginBinding
@@ -26,10 +27,10 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.btnLogin.setOnClickListener {
+            showLoading(true)
             val email = binding.tfValueEmail.text.toString().trim()
             val password = binding.tfValuePassword.text.toString().trim()
 
-            // TODO: 18/12/21 membuat validasi email dan password
             userLogin(email, password)
         }
 
@@ -44,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
+                    showLoading(false)
                     Intent(this, MainActivity::class.java).let {
                         startActivity(it)
                         finish()
@@ -58,6 +59,11 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+
+    private fun showLoading(state: Boolean){
+        binding.pbLoading.isVisible = state
     }
 
     companion object{
