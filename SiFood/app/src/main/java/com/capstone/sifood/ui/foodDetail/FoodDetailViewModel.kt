@@ -16,4 +16,12 @@ class FoodDetailViewModel(private val repository: Repository) : ViewModel() {
     fun delete(id: String) {
         repository.deleteFavoriteFood(id)
     }
+
+    fun deleteFirebase(data: Food){
+        repository.deleteFavoriteFirebase(data)
+    }
+
+    fun insertFirebase(data: Food){
+        repository.insertFavoriteFirebase(data)
+    }
 }

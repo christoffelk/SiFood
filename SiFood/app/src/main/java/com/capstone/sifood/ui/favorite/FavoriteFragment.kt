@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.databinding.FragmentFavoriteBinding
 import com.capstone.sifood.viewmodel.ViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 
 class FavoriteFragment : Fragment() {
 
@@ -17,8 +18,10 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private lateinit var favoriteAdapter: FavoriteAdapter
 
+    private lateinit var auth: FirebaseAuth
+
     // This property is only valid between onCreateView and
-    // onDestroyView.
+    // onDestroyView
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,15 +34,14 @@ class FavoriteFragment : Fragment() {
             ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favoriteAdapter = FavoriteAdapter()
-        favoriteViewModel.getFavorite().observe(viewLifecycleOwner, {
-
+        favoriteViewModel.getFavoriteFromFirebase(auth.uid.toString()).observe(viewLifecycleOwner, {
             if(it.isNotEmpty()){
                 favoriteAdapter.addItem(it as ArrayList<Food>)
                 with(binding.rvFavorite)

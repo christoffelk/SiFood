@@ -12,7 +12,6 @@ class AppExecutors @VisibleForTesting constructor(
     private val networkIO: Executor,
     private val mainThread: Executor
 ) {
-
     companion object {
         private const val THREAD_COUNT = 3
     }

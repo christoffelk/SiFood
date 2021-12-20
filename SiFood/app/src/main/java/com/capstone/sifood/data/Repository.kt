@@ -23,7 +23,6 @@ class Repository private constructor(
 ): AllDataSource{
     override fun getPopularFood(): LiveData<List<Food>> {
         return firebaseDatabase.getPopularFood()
-
     }
 
     override fun getFoodByLocation(location: String): LiveData<List<Food>> {
@@ -90,6 +89,18 @@ class Repository private constructor(
 
     override fun getLocationName(lat: Double, long: Double): LiveData<String> {
         return locationPicker.getLocationName(lat, long)
+    }
+
+    override fun insertFavoriteFirebase(data: Food) {
+        firebaseDatabase.insertFavoriteFirebase(data)
+    }
+
+    override fun deleteFavoriteFirebase(data: Food) {
+        firebaseDatabase.deleteFavoriteFirebase(data)
+    }
+
+    override fun getFavoriteFromFirebase(uid: String): LiveData<List<Food>> {
+        return firebaseDatabase.getFavoriteFirebase(uid)
     }
 
 

@@ -7,7 +7,10 @@ import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.other.Constant.FOOD_COLLECTION
 import com.capstone.sifood.other.Constant.IMAGE_COLLECTION
 import com.capstone.sifood.other.EspressoIdlingResource
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
 
@@ -18,6 +21,8 @@ class FirebaseDatabase {
     private val foodCollection = firestore.collection(FOOD_COLLECTION)
 
     private val imgCollection = firestore.collection(IMAGE_COLLECTION)
+
+    private val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
 
     fun getPopularFood(): LiveData<List<Food>>{
@@ -114,6 +119,56 @@ class FirebaseDatabase {
             }
         return food
     }
+
+    fun insertFavoriteFirebase(data: Food){
+        val firestore = Firebase.firestore
+        firestore.collection("users")
+            .document(auth.uid.toString())
+            .collection("favorites")
+            .document(data.id.toString())
+            .set(data)
+    }
+
+    fun deleteFavoriteFirebase(data: Food){
+        val firestore = Firebase.firestore
+        firestore.collection("users")
+            .document(auth.uid.toString())
+            .collection("favorites")
+            .document(data.id.toString())
+            .delete()
+    }
+
+    fun getFavoriteFirebase(uid: String): LiveData<List<Food>>{
+        val firestore = Firebase.firestore
+        val food = MutableLiveData<List<Food>>()
+        val favoriteData = firestore.collection("users")
+            .document(uid)
+            .collection("favorites")
+        favoriteData.get().addOnSuccessListener { favorites ->
+            val favRes = favorites.toObjects(Food::class.java)
+            val result = ArrayList<Food>()
+            favRes.forEach {
+                result.add(
+                    Food(
+                        id = it.id,
+                        name = it.name,
+                        province = it.province,
+                        provinceEng = it.provinceEng,
+                        popular = it.popular,
+                        imgUrl = it.imgUrl,
+                        imageLicence = it.imageLicence,
+                        contentLicence = it.description,
+                        description = it.description
+                    )
+                )
+            }
+            food.value = result
+        }
+        return food
+    }
+
+
+
     companion object{
         @Volatile
         private var instance : FirebaseDatabase? = null
