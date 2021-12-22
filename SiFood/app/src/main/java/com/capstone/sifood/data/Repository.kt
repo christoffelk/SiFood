@@ -7,6 +7,7 @@ import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.LocalDataSource
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.Food2
 import com.capstone.sifood.data.remote.NetworkBoundResource
 import com.capstone.sifood.data.remote.RemoteDataSource
 import com.capstone.sifood.data.remote.response.ApiResponse
@@ -21,22 +22,49 @@ class Repository private constructor(
     private val locationPicker: LocationPicker,
     private val appExecutors: AppExecutors
 ): AllDataSource{
-    override fun getPopularFood(): LiveData<List<Food>> {
-        return firebaseDatabase.getPopularFood()
+    override fun getPopularFood(): LiveData<Resource<List<Food>>> {
+        return object : NetworkBoundResource<List<Food>,List<Food>>(appExecutors)
+        {
+            override fun loadFromDB(): LiveData<List<Food>> =
+                localDataSource.getAllFood()
+
+
+            override fun shouldFetch(data: List<Food>?): Boolean =
+                data.isNullOrEmpty()
+
+
+            override fun createCall(): LiveData<ApiResponse<List<Food>>> =
+                firebaseDatabase.getPopularFood()
+
+
+            override fun saveCallResult(data: List<Food>) {
+                localDataSource.insertFood(data)
+            }
+
+        }.asLiveData()
     }
 
-    override fun getFoodByLocation(location: String): LiveData<List<Food>> {
-        return firebaseDatabase.getFoodByLocation(location)
+    override fun getFoodByLocation(location: String): LiveData<Resource<List<Food2>>> {
+        return object : NetworkBoundResource<List<Food2>,List<Food2>>(appExecutors)
+        {
+            override fun loadFromDB(): LiveData<List<Food2>> =
+                localDataSource.getLocation(location)
+
+            override fun shouldFetch(data: List<Food2>?): Boolean =
+                data.isNullOrEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<Food2>>> =
+                firebaseDatabase.getFoodByLocation(location)
+
+            override fun saveCallResult(data: List<Food2>) {
+                localDataSource.insertFoodLocation(data)
+            }
+
+        }.asLiveData()
     }
 
     override fun getFavoriteFood(): LiveData<List<Food>> {
         return localDataSource.getAllFood()
-    }
-
-    override fun insertFavoriteFood(data: Food) {
-        return appExecutors.diskIO().execute {
-            localDataSource.insertFood(data)
-        }
     }
 
     override fun getImageSlider(): LiveData<List<Image>> {

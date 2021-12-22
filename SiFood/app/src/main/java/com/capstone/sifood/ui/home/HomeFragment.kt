@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,16 +17,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.capstone.sifood.R
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.Food2
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.ui.allfood.AllFoodActivity
 import com.capstone.sifood.viewmodel.ViewModelFactory
+import com.capstone.sifood.vo.Status
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeAdapter: HomeAdapter
-    private lateinit var secHomeAdapter: HomeAdapter
+    private lateinit var secHomeAdapter: HomeAdapterLocation
     private val binding get() = _binding!!
 
     private lateinit var carouselAdapter: CarouselAdapter
@@ -48,10 +51,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter()
-        secHomeAdapter = HomeAdapter()
+        secHomeAdapter = HomeAdapterLocation()
         binding.loading.visibility = View.VISIBLE
         homeViewModel.getPopularFood().observe(viewLifecycleOwner, {
-            homeAdapter.addItem(it as ArrayList<Food>)
+            if(it != null) {
+                when (it.status) {
+                    Status.LOADING -> binding.loading.visibility = View.VISIBLE
+                    Status.ERROR -> {
+                        binding.loading.visibility = View.GONE
+                        Toast.makeText(context, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.loading.visibility = View.GONE
+                        homeAdapter.addItem(it.data as ArrayList<Food>)
+                    }
+                }
+            }
             with(binding.rvPopuler)
             {
                 layoutManager =
@@ -75,7 +91,21 @@ class HomeFragment : Fragment() {
                 }
         }
         homeViewModel.listFood.observe(viewLifecycleOwner, {
-            secHomeAdapter.addItem(it as ArrayList<Food>)
+            if(it != null) {
+                when (it.status) {
+                    Status.LOADING -> binding.loading.visibility = View.VISIBLE
+                    Status.ERROR -> {
+                        binding.loading.visibility = View.GONE
+                        Toast.makeText(context, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.loading.visibility = View.GONE
+                        secHomeAdapter.addItem(it.data as ArrayList<Food2>)
+                    }
+                }
+            }
+
             with(binding.rvDaerah)
             {
                 layoutManager =

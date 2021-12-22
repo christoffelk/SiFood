@@ -69,7 +69,7 @@ class FoodDetailActivity : AppCompatActivity() {
             checked = !checked
             if (checked) {
                 foodDetail?.let { it1 ->
-                    detailViewModel.insert(it1)
+                    //detailViewModel.insert(it1)
                     detailViewModel.insertFirebase(it1)
                 }
             } else {

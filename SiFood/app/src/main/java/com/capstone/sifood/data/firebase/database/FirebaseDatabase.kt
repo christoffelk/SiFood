@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.remote.response.ApiResponse
 import com.capstone.sifood.other.Constant.FOOD_COLLECTION
 import com.capstone.sifood.other.Constant.IMAGE_COLLECTION
 import com.capstone.sifood.other.EspressoIdlingResource
@@ -25,8 +27,8 @@ class FirebaseDatabase {
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
 
-    fun getPopularFood(): LiveData<List<Food>>{
-        val food = MutableLiveData<List<Food>>()
+    fun getPopularFood(): LiveData<ApiResponse<List<Food>>>{
+        val food = MutableLiveData<ApiResponse<List<Food>>>()
         EspressoIdlingResource.increment()
         return try {
             foodCollection
@@ -50,18 +52,18 @@ class FirebaseDatabase {
                             )
                         )
                     }
-                    food.value = result
+                    food.value = ApiResponse.success(result)
                     EspressoIdlingResource.decrement()
                 }
             food
         } catch (e: Exception) {
-            food.value = emptyList()
+            food.value = ApiResponse.success(emptyList())
             food
         }
     }
 
-    fun getFoodByLocation(location: String): LiveData<List<Food>>{
-        val food = MutableLiveData<List<Food>>()
+    fun getFoodByLocation(location: String): LiveData<ApiResponse<List<Food2>>>{
+        val food = MutableLiveData<ApiResponse<List<Food2>>>()
         EspressoIdlingResource.increment()
         return try {
             /*food.value = foodCollection
@@ -73,10 +75,10 @@ class FirebaseDatabase {
                 .get()
                 .addOnSuccessListener { foods ->
                     val resultFood = foods.toObjects(Food::class.java)
-                    val result = ArrayList<Food>()
+                    val result = ArrayList<Food2>()
                     resultFood.forEach {
                         result.add(
-                            Food(
+                            Food2(
                                 id = it.id,
                                 imgUrl = it.imgUrl,
                                 name = it.name,
@@ -89,7 +91,7 @@ class FirebaseDatabase {
                             )
                         )
                     }
-                    food.value = result
+                    food.value = ApiResponse.success(result)
                     EspressoIdlingResource.decrement()
                 }
             food

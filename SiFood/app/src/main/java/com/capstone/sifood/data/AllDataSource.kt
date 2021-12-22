@@ -5,12 +5,12 @@ import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.Food2
 
 interface AllDataSource {
-    fun getPopularFood(): LiveData<List<Food>>
-    fun getFoodByLocation(location: String): LiveData<List<Food>>
+    fun getPopularFood(): LiveData<Resource<List<Food>>>
+    fun getFoodByLocation(location: String): LiveData<Resource<List<Food2>>>
     fun getFavoriteFood(): LiveData<List<Food>>
-    fun insertFavoriteFood(data: Food)
     fun getImageSlider() : LiveData<List<Image>>
     fun deleteFavoriteFood(id: String)
     fun checkFood(id: String): Boolean

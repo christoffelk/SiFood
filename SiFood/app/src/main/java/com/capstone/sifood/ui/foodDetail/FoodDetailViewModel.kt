@@ -9,9 +9,9 @@ class FoodDetailViewModel(private val repository: Repository) : ViewModel() {
         return repository.checkFood(id)
     }
 
-    fun insert(food: Food) {
-        repository.insertFavoriteFood(food)
-    }
+    //fun insert(food: Food) {
+      //  repository.insertFavoriteFood(food)
+    //}
 
     fun delete(id: String) {
         repository.deleteFavoriteFood(id)
