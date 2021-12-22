@@ -38,53 +38,53 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         val filter = intent.getStringExtra(FILTER).toString()
 
-//        when (filter) {
-//            "popular" -> {
-//                binding.textResult.text = getString(R.string.GoInter)
-//                viewModel.getPopularFood().observe(this,{
-//                    if(it != null) {
-//                        when (it.status) {
-//                            Status.LOADING -> {}
-//                            Status.ERROR -> {
-//                                Toast.makeText(this, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
-//                                    .show()
-//                            }
-//                            Status.SUCCESS -> {
-//                                allFoodAdapter.addItem(it.data as ArrayList<Food>)
-//                            }
-//                        }
-//                    }
-//
-//                    with(binding.rvAllFood) {
-//                        layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
-//                        setHasFixedSize(false)
-//                        adapter = allFoodAdapter
-//                    }
-//                })
-//            }
-//            "location" -> {
-//                binding.textResult.text = getString(R.string.Daerah) + LOCATION_NAME
-//                viewModel.getFoodByLocation(LOCATION_NAME).observe(this,{
-//                    if(it != null) {
-//                        when (it.status) {
-//                            Status.LOADING -> {}
-//                            Status.ERROR -> {
-//                                Toast.makeText(this, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
-//                                    .show()
-//                            }
-//                            Status.SUCCESS -> {
-//                                allFoodAdapterLocation.addItem(it.data as ArrayList<FoodLocation>)
-//                            }
-//                        }
-//                    }
-//                    with(binding.rvAllFood) {
-//                        layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
-//                        setHasFixedSize(false)
-//                        adapter = allFoodAdapterLocation
-//                    }
-//                })
-//            }
-//        }
+        when (filter) {
+            "popular" -> {
+                binding.textResult.text = getString(R.string.GoInter)
+                viewModel.getPopularFood().observe(this,{
+                    if(it != null) {
+                        when (it.status) {
+                            Status.LOADING -> {}
+                            Status.ERROR -> {
+                                Toast.makeText(this, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            Status.SUCCESS -> {
+                                allFoodAdapter.addItem(it.data as ArrayList<Food>)
+                            }
+                        }
+                    }
+
+                    with(binding.rvAllFood) {
+                        layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
+                        setHasFixedSize(false)
+                        adapter = allFoodAdapter
+                    }
+                })
+            }
+            "location" -> {
+                binding.textResult.text = getString(R.string.Daerah) + LOCATION_NAME
+                viewModel.getFoodByLocation(LOCATION_NAME).observe(this,{
+                    if(it != null) {
+                        when (it.status) {
+                            Status.LOADING -> {}
+                            Status.ERROR -> {
+                                Toast.makeText(this, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            Status.SUCCESS -> {
+                                allFoodAdapterLocation.addItem(it.data as ArrayList<FoodLocation>)
+                            }
+                        }
+                    }
+                    with(binding.rvAllFood) {
+                        layoutManager = GridLayoutManager(this@AllFoodActivity, 2)
+                        setHasFixedSize(false)
+                        adapter = allFoodAdapterLocation
+                    }
+                })
+            }
+        }
 
         viewModel.setData(filter)
 
