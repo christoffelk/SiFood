@@ -1,14 +1,10 @@
 package com.capstone.sifood.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import com.capstone.sifood.MainActivity
-import com.capstone.sifood.R
 import com.capstone.sifood.databinding.ActivityLoginBinding
 import com.capstone.sifood.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -35,9 +31,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvSignUp.setOnClickListener {
-            Intent(this, RegisterActivity::class.java).let {
-                startActivity(it)
-            }
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
@@ -53,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val message = task.exception.toString().split(":").toTypedArray()[1]
 
-                    with(binding.tvAlert){
+                    with(binding.tvAlert) {
                         text = message
                         visibility = View.VISIBLE
                     }
@@ -62,11 +56,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun showLoading(state: Boolean){
+    private fun showLoading(state: Boolean) {
 //        binding.pbLoading.isVisible = state
     }
 
-    companion object{
-        private const val TAG = "Login Activity"
-    }
 }

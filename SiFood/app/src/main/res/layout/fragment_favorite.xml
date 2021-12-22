@@ -18,6 +18,7 @@
     <ImageView
         android:id="@+id/emty_image"
         android:layout_width="200dp"
+        android:contentDescription="@string/kosong"
         android:layout_height="200dp"
         android:layout_marginTop="100dp"
         android:src="@drawable/empty_image"
@@ -34,9 +35,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:text="Belum ada Makanan\nFavoritmu"
+        android:text="@string/belum_ada_makanan_nfavoritmu"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emty_image"
         android:visibility="gone"/>

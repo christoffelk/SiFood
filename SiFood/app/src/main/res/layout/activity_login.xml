@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="LOGIN"
+        android:text="@string/login"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:hint="Username"
+        android:hint="@string/username"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="@string/password"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_alert"
-        android:text="Alert"
+        android:text="@string/alert"
         android:textColor="#FF0000"
         android:textStyle="italic"
         android:visibility="gone"
@@ -81,7 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
-        android:text="Login"
+        android:text="@string/login"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/tf_password"
         app:layout_constraintStart_toStartOf="@+id/tf_password"
@@ -103,17 +103,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:text="Belum memiliki akun?" />
+            android:layout_marginEnd="8dp"
+            android:text="@string/belum_memiliki_akun" />
 
         <TextView
             android:id="@+id/tv_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textColor="@color/teal_700"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:focusable="true" />
 
     </LinearLayout>
 

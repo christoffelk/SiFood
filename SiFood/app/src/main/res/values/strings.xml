@@ -23,12 +23,26 @@
     <string name="makanan_tradisional_yang_sudah_terkenal">Makanan Tradisional yang sudah terkenal</string>
     <string name="makanan_yang_berasal_ndari_daerahmu">Makanan yang berasal \ndari daerahmu</string>
     <string name="makanan_tradisional_yang_berasal_dari_daerahmu">Makanan tradisional yang berasal dari daerahmu</string>
-    <string name="action_settings">setting</string>
+    <string name="action_settings">Setting</string>
     <string name="carousel">Carousel</string>
 
     <!-- Location -->
     <string name="GoInter">Makanan tradisional Indonesia Go Internasional</string>
     <string name="Daerah">Makanan tradisional Indonesia di daerah </string>
     <string name="lihat_semua"><![CDATA[Lihat Semua >]]></string>
+    <string name="nointernet">noInternet</string>
+    <string name="tidak_ada_koneksi_internet">Tidak ada koneksi Internet :(</string>
+    <string name="coba_lagi">Coba Lagi</string>
+    <string name="kosong">kosong</string>
+    <string name="logout">Logout</string>
+    <string name="belum_ada_makanan_nfavoritmu">Belum ada Makanan\nFavoritmu</string>
+    <string name="buat_akun">Buat Akun</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="alert">Alert</string>
+    <string name="sudah_memiliki_akun">Sudah memiliki akun?</string>
+    <string name="login">Login</string>
+    <string name="belum_memiliki_akun">Belum memiliki akun?</string>
+    <string name="sign_up">Sign Up</string>
 
 </resources>

@@ -40,12 +40,3 @@ data class ArticlesItem(
 	//@field:SerializedName("content")
 	//val content: String
 )
-
-data class Source(
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("id")
-	val id: Any
-)

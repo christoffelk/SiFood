@@ -17,23 +17,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.capstone.sifood.databinding.ActivityMainBinding
-import com.capstone.sifood.other.Constant.LATITUDE
-import com.capstone.sifood.other.Constant.LOCATION_NAME
-import com.capstone.sifood.other.Constant.LONGITUDE
-import com.capstone.sifood.other.LocationPicker
 import com.capstone.sifood.ui.login.LoginActivity
 import com.capstone.sifood.ui.nointernet.NoInternetActivity
 import com.capstone.sifood.ui.setting.SettingActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-
-    private lateinit var locationPicker: LocationPicker
 
     private lateinit var auth: FirebaseAuth
 
@@ -47,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        if (!isOnline(this)){
+        if (!isOnline(this)) {
             Intent(this, NoInternetActivity::class.java).let {
                 startActivity(it)
                 finish()
@@ -117,12 +109,16 @@ class MainActivity : AppCompatActivity() {
             val capa =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capa != null) {
-                if (capa.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    return true
-                } else if (capa.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    return true
-                } else if (capa.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    return true
+                when {
+                    capa.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        return true
+                    }
+                    capa.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        return true
+                    }
+                    capa.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        return true
+                    }
                 }
             }
         }

@@ -8,9 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.data.local.entities.FoodFavorite
-import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.databinding.FragmentFavoriteBinding
 import com.capstone.sifood.viewmodel.ViewModelFactory
 import com.capstone.sifood.vo.Status
@@ -44,7 +42,7 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         favoriteAdapter = FavoriteAdapter()
         favoriteViewModel.getFavoriteFromFirebase(auth.uid.toString()).observe(viewLifecycleOwner, {
-            if(it != null) {
+            if (it != null) {
                 when (it.status) {
                     Status.LOADING -> {
                     }
@@ -64,8 +62,7 @@ class FavoriteFragment : Fragment() {
                 }
 
             }
-            if(it.data?.isEmpty() == true)
-            {
+            if (it.data?.isEmpty() == true) {
                 binding.emtyImage.visibility = View.VISIBLE
                 binding.emptyInformation.visibility = View.VISIBLE
             }
