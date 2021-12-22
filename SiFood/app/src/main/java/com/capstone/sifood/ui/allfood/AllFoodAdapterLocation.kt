@@ -34,6 +34,7 @@ class AllFoodAdapterLocation : RecyclerView.Adapter<AllFoodAdapterLocation.ViewH
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, FoodDetailActivity::class.java)
                 intent.putExtra(FoodDetailActivity.FOOD, food)
+                intent.putExtra(FoodDetailActivity.TYPE,"Location")
                 itemView.context.startActivity(intent)
             }
         }

@@ -34,6 +34,7 @@ class AllFoodAdapter : RecyclerView.Adapter<AllFoodAdapter.ViewHolder>() {
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, FoodDetailActivity::class.java)
                 intent.putExtra(FoodDetailActivity.FOOD, food)
+                intent.putExtra(FoodDetailActivity.TYPE,"popular")
                 itemView.context.startActivity(intent)
             }
         }

@@ -44,6 +44,7 @@ class FoodDetailActivity : AppCompatActivity() {
             binding.from.text = foodDetail?.province.toString()
             binding.pictureProfile.loadImage(foodDetail?.imgUrl)
             binding.pictureBackground.loadImage(foodDetail?.imgUrl)
+            maps(foodDetail?.name.toString())
         }
         if(type == "Location")
         {
@@ -53,22 +54,18 @@ class FoodDetailActivity : AppCompatActivity() {
             binding.from.text = foodLocation?.province.toString()
             binding.pictureProfile.loadImage(foodLocation?.imgUrl)
             binding.pictureBackground.loadImage(foodLocation?.imgUrl)
+            maps(foodLocation?.name.toString())
         }
         binding.btnDetailBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnMaps.setOnClickListener {
-            //val gmmIntentUri: Uri = Uri.parse("geo:${LATITUDE},${LONGITUDE}?q=${foodDetail?.name}")
-            //val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            //mapIntent.setPackage("com.google.android.apps.maps")
-            //startActivity(mapIntent)
-        }
+
         val factory = ViewModelFactory.getInstance(this)
         val detailViewModel = ViewModelProvider(this, factory)[FoodDetailViewModel::class.java]
-        /*var checked = false
-        CoroutineScope(Dispatchers.IO).launch {
+        var checked = false
+        /*CoroutineScope(Dispatchers.IO).launch {
             val check = detailViewModel.check(foodDetail?.id.toString())
             withContext(Dispatchers.Main)
             {
@@ -104,6 +101,15 @@ class FoodDetailActivity : AppCompatActivity() {
             .collection("favorites")
             .document(data.id.toString())
             .set(data)
+    }
+    private fun maps(name :String)
+    {
+        binding.btnMaps.setOnClickListener {
+            val gmmIntentUri: Uri = Uri.parse("geo:${LATITUDE},${LONGITUDE}?q=${name}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
     }
 
     private fun deletefavoriteFirestore(data: Food){
