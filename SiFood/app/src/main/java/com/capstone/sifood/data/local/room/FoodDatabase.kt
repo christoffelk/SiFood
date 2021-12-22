@@ -6,10 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 
 
-@Database(entities = [Food::class,Article::class,Food2::class],
+@Database(entities = [Food::class,Article::class,FoodLocation::class],
 version = 1,
 exportSchema = false)
 abstract class FoodDatabase: RoomDatabase() {

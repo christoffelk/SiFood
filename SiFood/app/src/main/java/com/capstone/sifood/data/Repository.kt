@@ -7,7 +7,7 @@ import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.LocalDataSource
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.data.remote.NetworkBoundResource
 import com.capstone.sifood.data.remote.RemoteDataSource
 import com.capstone.sifood.data.remote.response.ApiResponse
@@ -44,19 +44,19 @@ class Repository private constructor(
         }.asLiveData()
     }
 
-    override fun getFoodByLocation(location: String): LiveData<Resource<List<Food2>>> {
-        return object : NetworkBoundResource<List<Food2>,List<Food2>>(appExecutors)
+    override fun getFoodByLocation(location: String): LiveData<Resource<List<FoodLocation>>> {
+        return object : NetworkBoundResource<List<FoodLocation>,List<FoodLocation>>(appExecutors)
         {
-            override fun loadFromDB(): LiveData<List<Food2>> =
+            override fun loadFromDB(): LiveData<List<FoodLocation>> =
                 localDataSource.getLocation(location)
 
-            override fun shouldFetch(data: List<Food2>?): Boolean =
+            override fun shouldFetch(data: List<FoodLocation>?): Boolean =
                 data.isNullOrEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<Food2>>> =
+            override fun createCall(): LiveData<ApiResponse<List<FoodLocation>>> =
                 firebaseDatabase.getFoodByLocation(location)
 
-            override fun saveCallResult(data: List<Food2>) {
+            override fun saveCallResult(data: List<FoodLocation>) {
                 localDataSource.insertFoodLocation(data)
             }
 

@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 
 @Dao
 interface FoodDao {
@@ -15,12 +15,12 @@ interface FoodDao {
     fun  insertFood(data: List<Food>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFoodLocation(data: List<Food2>)
+    fun insertFoodLocation(data: List<FoodLocation>)
     @Query("SELECT * FROM food")
     fun getAllFood(): LiveData<List<Food>>
 
     @Query("SELECT * FROM foodlocation where provinceEng = :location or province = :location")
-    fun getLocationFood(location:String)  : LiveData<List<Food2>>
+    fun getLocationFood(location:String)  : LiveData<List<FoodLocation>>
     @Query("SELECT * FROM article")
     fun getAllArticle() : LiveData<List<Article>>
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.data.remote.response.ApiResponse
 import com.capstone.sifood.other.Constant.FOOD_COLLECTION
 import com.capstone.sifood.other.Constant.IMAGE_COLLECTION
@@ -62,8 +62,8 @@ class FirebaseDatabase {
         }
     }
 
-    fun getFoodByLocation(location: String): LiveData<ApiResponse<List<Food2>>>{
-        val food = MutableLiveData<ApiResponse<List<Food2>>>()
+    fun getFoodByLocation(location: String): LiveData<ApiResponse<List<FoodLocation>>>{
+        val food = MutableLiveData<ApiResponse<List<FoodLocation>>>()
         EspressoIdlingResource.increment()
         return try {
             /*food.value = foodCollection
@@ -75,10 +75,10 @@ class FirebaseDatabase {
                 .get()
                 .addOnSuccessListener { foods ->
                     val resultFood = foods.toObjects(Food::class.java)
-                    val result = ArrayList<Food2>()
+                    val result = ArrayList<FoodLocation>()
                     resultFood.forEach {
                         result.add(
-                            Food2(
+                            FoodLocation(
                                 id = it.id,
                                 imgUrl = it.imgUrl,
                                 name = it.name,

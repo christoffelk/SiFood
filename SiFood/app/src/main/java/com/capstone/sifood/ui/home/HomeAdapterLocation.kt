@@ -7,20 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.capstone.sifood.R
-import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.databinding.ItemlistBinding
 import com.capstone.sifood.ui.foodDetail.FoodDetailActivity
 
 class HomeAdapterLocation : RecyclerView.Adapter<HomeAdapterLocation.ViewHolder>() {
-    private val listUsers = ArrayList<Food2>()
-    fun addItem(users: ArrayList<Food2>) {
+    private val listUsers = ArrayList<FoodLocation>()
+    fun addItem(users: ArrayList<FoodLocation>) {
         listUsers.clear()
         listUsers.addAll(users)
     }
 
     class ViewHolder(private val binding: ItemlistBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(food: Food2) {
+        fun bind(food: FoodLocation) {
             with(binding)
             {
                 Glide.with(itemView.context)
@@ -35,6 +34,7 @@ class HomeAdapterLocation : RecyclerView.Adapter<HomeAdapterLocation.ViewHolder>
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, FoodDetailActivity::class.java)
                 intent.putExtra(FoodDetailActivity.FOOD, food)
+                intent.putExtra(FoodDetailActivity.TYPE,"Location")
                 itemView.context.startActivity(intent)
             }
         }

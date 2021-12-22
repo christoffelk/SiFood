@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "foodLocation")
-data class Food2(
+@Entity(tableName = "foodFavorite")
+data class FoodFavorite(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 

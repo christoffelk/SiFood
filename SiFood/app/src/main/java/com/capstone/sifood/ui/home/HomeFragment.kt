@@ -17,7 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.capstone.sifood.R
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.databinding.FragmentHomeBinding
 import com.capstone.sifood.ui.allfood.AllFoodActivity
 import com.capstone.sifood.viewmodel.ViewModelFactory
@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
                     }
                     Status.SUCCESS -> {
                         binding.loading.visibility = View.GONE
-                        secHomeAdapter.addItem(it.data as ArrayList<Food2>)
+                        secHomeAdapter.addItem(it.data as ArrayList<FoodLocation>)
                     }
                 }
             }

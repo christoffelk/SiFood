@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.sifood.MainActivity
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.databinding.ActivityFoodDetailBinding
 import com.capstone.sifood.other.Constant.LATITUDE
 import com.capstone.sifood.other.Constant.LONGITUDE
@@ -32,26 +33,41 @@ class FoodDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-        val foodDetail = intent.getParcelableExtra<Food>(FOOD)
-        binding.description.text = foodDetail?.description.toString()
-        binding.foodName.text = foodDetail?.name.toString()
-        binding.from.text = foodDetail?.province.toString()
-        binding.pictureProfile.loadImage(foodDetail?.imgUrl)
-        binding.pictureBackground.loadImage(foodDetail?.imgUrl)
+        val type = intent.getStringExtra(TYPE)
+
+
+        if(type == "popular")
+        {
+            val foodDetail = intent.getParcelableExtra<Food>(FOOD)
+            binding.description.text = foodDetail?.description.toString()
+            binding.foodName.text = foodDetail?.name.toString()
+            binding.from.text = foodDetail?.province.toString()
+            binding.pictureProfile.loadImage(foodDetail?.imgUrl)
+            binding.pictureBackground.loadImage(foodDetail?.imgUrl)
+        }
+        if(type == "Location")
+        {
+            val foodLocation = intent.getParcelableExtra<FoodLocation>(FOOD)
+            binding.description.text = foodLocation?.description.toString()
+            binding.foodName.text = foodLocation?.name.toString()
+            binding.from.text = foodLocation?.province.toString()
+            binding.pictureProfile.loadImage(foodLocation?.imgUrl)
+            binding.pictureBackground.loadImage(foodLocation?.imgUrl)
+        }
         binding.btnDetailBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnMaps.setOnClickListener {
-            val gmmIntentUri: Uri = Uri.parse("geo:${LATITUDE},${LONGITUDE}?q=${foodDetail?.name}")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)
+            //val gmmIntentUri: Uri = Uri.parse("geo:${LATITUDE},${LONGITUDE}?q=${foodDetail?.name}")
+            //val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            //mapIntent.setPackage("com.google.android.apps.maps")
+            //startActivity(mapIntent)
         }
         val factory = ViewModelFactory.getInstance(this)
         val detailViewModel = ViewModelProvider(this, factory)[FoodDetailViewModel::class.java]
-        var checked = false
+        /*var checked = false
         CoroutineScope(Dispatchers.IO).launch {
             val check = detailViewModel.check(foodDetail?.id.toString())
             withContext(Dispatchers.Main)
@@ -69,7 +85,6 @@ class FoodDetailActivity : AppCompatActivity() {
             checked = !checked
             if (checked) {
                 foodDetail?.let { it1 ->
-                    //detailViewModel.insert(it1)
                     detailViewModel.insertFirebase(it1)
                 }
             } else {
@@ -79,7 +94,7 @@ class FoodDetailActivity : AppCompatActivity() {
                 }
             }
             binding.btnDetailFavorite.isChecked = checked
-        }
+        }*/
     }
 
     private fun addFavoriteToFirestore(data: Food){
@@ -109,5 +124,6 @@ class FoodDetailActivity : AppCompatActivity() {
 
     companion object {
         const val FOOD = "food"
+        const val TYPE = "popular"
     }
 }

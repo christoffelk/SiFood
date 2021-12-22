@@ -2,7 +2,6 @@ package com.capstone.sifood.ui.allfood
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.sifood.R
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.local.entities.Food2
+import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.databinding.ActivityAllFoodBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.viewmodel.ViewModelFactory
@@ -74,7 +73,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                                     .show()
                             }
                             Status.SUCCESS -> {
-                                allFoodAdapterLocation.addItem(it.data as ArrayList<Food2>)
+                                allFoodAdapterLocation.addItem(it.data as ArrayList<FoodLocation>)
                             }
                         }
                     }
