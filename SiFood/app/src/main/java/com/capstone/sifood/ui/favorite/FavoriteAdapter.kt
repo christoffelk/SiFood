@@ -6,18 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.databinding.ItemlistBinding
 import com.capstone.sifood.ui.foodDetail.FoodDetailActivity
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
-    private val listUsers = ArrayList<Food>()
-    fun addItem(users: ArrayList<Food>) {
+    private val listUsers = ArrayList<FoodFavorite>()
+    fun addItem(users: ArrayList<FoodFavorite>) {
         listUsers.clear()
         listUsers.addAll(users)
     }
 
     class ViewHolder(private val binding: ItemlistBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(food: Food) {
+        fun bind(food: FoodFavorite) {
             with(binding)
             {
                 Glide.with(itemView.context)

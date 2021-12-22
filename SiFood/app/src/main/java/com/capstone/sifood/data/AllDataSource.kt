@@ -5,6 +5,7 @@ import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.data.local.entities.FoodLocation
 
 interface AllDataSource {
@@ -20,5 +21,5 @@ interface AllDataSource {
 
     fun insertFavoriteFirebase(data: Food)
     fun deleteFavoriteFirebase(data: Food)
-    fun getFavoriteFromFirebase(uid: String): LiveData<List<Food>>
+    fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>>
 }

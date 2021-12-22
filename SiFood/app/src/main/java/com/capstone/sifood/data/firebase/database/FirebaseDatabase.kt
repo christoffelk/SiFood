@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.data.remote.response.ApiResponse
 import com.capstone.sifood.other.Constant.FOOD_COLLECTION
@@ -74,7 +75,7 @@ class FirebaseDatabase {
                 .whereEqualTo("provinceEng", location)
                 .get()
                 .addOnSuccessListener { foods ->
-                    val resultFood = foods.toObjects(Food::class.java)
+                    val resultFood = foods.toObjects(FoodLocation::class.java)
                     val result = ArrayList<FoodLocation>()
                     resultFood.forEach {
                         result.add(
@@ -140,18 +141,18 @@ class FirebaseDatabase {
             .delete()
     }
 
-    fun getFavoriteFirebase(uid: String): LiveData<List<Food>>{
+    fun getFavoriteFirebase(uid: String): LiveData<ApiResponse<List<FoodFavorite>>>{
         val firestore = Firebase.firestore
-        val food = MutableLiveData<List<Food>>()
+        val food = MutableLiveData<ApiResponse<List<FoodFavorite>>>()
         val favoriteData = firestore.collection("users")
             .document(uid)
             .collection("favorites")
         favoriteData.get().addOnSuccessListener { favorites ->
-            val favRes = favorites.toObjects(Food::class.java)
-            val result = ArrayList<Food>()
+            val favRes = favorites.toObjects(FoodFavorite::class.java)
+            val result = ArrayList<FoodFavorite>()
             favRes.forEach {
                 result.add(
-                    Food(
+                    FoodFavorite(
                         id = it.id,
                         name = it.name,
                         province = it.province,
@@ -164,7 +165,7 @@ class FirebaseDatabase {
                     )
                 )
             }
-            food.value = result
+            food.value = ApiResponse.success(result)
         }
         return food
     }

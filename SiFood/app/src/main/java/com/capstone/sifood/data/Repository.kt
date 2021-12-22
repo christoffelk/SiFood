@@ -7,6 +7,7 @@ import com.capstone.sifood.data.firebase.entities.Image
 import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.LocalDataSource
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.data.remote.NetworkBoundResource
 import com.capstone.sifood.data.remote.RemoteDataSource
@@ -127,8 +128,23 @@ class Repository private constructor(
         firebaseDatabase.deleteFavoriteFirebase(data)
     }
 
-    override fun getFavoriteFromFirebase(uid: String): LiveData<List<Food>> {
-        return firebaseDatabase.getFavoriteFirebase(uid)
+    override fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>> {
+        return object :  NetworkBoundResource<List<FoodFavorite>,List<FoodFavorite>>(appExecutors)
+        {
+            override fun loadFromDB(): LiveData<List<FoodFavorite>> =
+                localDataSource.getFavorite()
+
+            override fun shouldFetch(data: List<FoodFavorite>?): Boolean =
+                data.isNullOrEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<FoodFavorite>>> =
+                firebaseDatabase.getFavoriteFirebase(uid)
+
+            override fun saveCallResult(data: List<FoodFavorite>) {
+                localDataSource.insertFoodFavorite(data)
+            }
+
+        }.asLiveData()
     }
 
 
