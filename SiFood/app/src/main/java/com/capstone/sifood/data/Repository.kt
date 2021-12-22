@@ -120,31 +120,47 @@ class Repository private constructor(
         return locationPicker.getLocationName(lat, long)
     }
 
-    override fun insertFavoriteFirebase(data: Food) {
-        firebaseDatabase.insertFavoriteFirebase(data)
-    }
+//    override fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>> {
+//        return object :  NetworkBoundResource<List<FoodFavorite>,List<FoodFavorite>>(appExecutors)
+//        {
+//            override fun loadFromDB(): LiveData<List<FoodFavorite>> =
+//                localDataSource.getFavorite()
+//
+//            override fun shouldFetch(data: List<FoodFavorite>?): Boolean =
+//                data.isNullOrEmpty()
+//
+//            override fun createCall(): LiveData<ApiResponse<List<FoodFavorite>>> =
+//                firebaseDatabase.getFavoriteFirebase(uid)
+//
+//            override fun saveCallResult(data: List<FoodFavorite>) {
+//                localDataSource.insertFoodFavorite(data)
+//            }
+//
+//        }.asLiveData()
+//    }
 
-    override fun deleteFavoriteFirebase(data: Food) {
-        firebaseDatabase.deleteFavoriteFirebase(data)
-    }
-
-    override fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>> {
-        return object :  NetworkBoundResource<List<FoodFavorite>,List<FoodFavorite>>(appExecutors)
-        {
-            override fun loadFromDB(): LiveData<List<FoodFavorite>> =
-                localDataSource.getFavorite()
-
-            override fun shouldFetch(data: List<FoodFavorite>?): Boolean =
-                data.isNullOrEmpty()
-
-            override fun createCall(): LiveData<ApiResponse<List<FoodFavorite>>> =
-                firebaseDatabase.getFavoriteFirebase(uid)
-
-            override fun saveCallResult(data: List<FoodFavorite>) {
+    override fun insertFavorite(data: FoodFavorite) {
+        try {
+            appExecutors.diskIO().execute {
                 localDataSource.insertFoodFavorite(data)
             }
 
-        }.asLiveData()
+            firebaseDatabase.insertFavoriteFirebase(data)
+        } catch (e: Exception){
+            println("gagal insert favorite ke database: " + e.message)
+        }
+    }
+
+    override fun deleteFavorite(data: FoodFavorite) {
+        try {
+            appExecutors.diskIO().execute {
+                localDataSource.deleteFavorite(data)
+            }
+
+            firebaseDatabase.deleteFavoriteFirebase(data)
+        } catch (e: Exception){
+            println("gagal insert favorite ke database: " + e.message)
+        }
     }
 
 

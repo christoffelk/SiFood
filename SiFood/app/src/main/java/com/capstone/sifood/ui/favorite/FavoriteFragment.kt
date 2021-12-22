@@ -24,8 +24,6 @@ class FavoriteFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
 
-    // This property is only valid between onCreateView and
-    // onDestroyView
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -45,33 +43,33 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favoriteAdapter = FavoriteAdapter()
-        favoriteViewModel.getFavoriteFromFirebase(auth.uid.toString()).observe(viewLifecycleOwner, {
-            if(it != null) {
-                when (it.status) {
-                    Status.LOADING -> {
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(context, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    Status.SUCCESS -> {
-                        favoriteAdapter.addItem(it.data as ArrayList<FoodFavorite>)
-                        with(binding.rvFavorite)
-                        {
-                            layoutManager = GridLayoutManager(requireContext(), 2)
-                            setHasFixedSize(true)
-                            adapter = favoriteAdapter
-                        }
-                    }
-                }
-
-            }
-            if(it.data?.isEmpty() == true)
-            {
-                binding.emtyImage.visibility = View.VISIBLE
-                binding.emptyInformation.visibility = View.VISIBLE
-            }
-        })
+//        favoriteViewModel.getFavoriteFromFirebase(auth.uid.toString()).observe(viewLifecycleOwner, {
+//            if(it != null) {
+//                when (it.status) {
+//                    Status.LOADING -> {
+//                    }
+//                    Status.ERROR -> {
+//                        Toast.makeText(context, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//                    Status.SUCCESS -> {
+//                        favoriteAdapter.addItem(it.data as ArrayList<FoodFavorite>)
+//                        with(binding.rvFavorite)
+//                        {
+//                            layoutManager = GridLayoutManager(requireContext(), 2)
+//                            setHasFixedSize(true)
+//                            adapter = favoriteAdapter
+//                        }
+//                    }
+//                }
+//
+//            }
+//            if(it.data?.isEmpty() == true)
+//            {
+//                binding.emtyImage.visibility = View.VISIBLE
+//                binding.emptyInformation.visibility = View.VISIBLE
+//            }
+//        })
     }
 
     override fun onDestroyView() {

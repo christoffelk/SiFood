@@ -123,7 +123,7 @@ class FirebaseDatabase {
         return food
     }
 
-    fun insertFavoriteFirebase(data: Food){
+    fun insertFavoriteFirebase(data: FoodFavorite){
         val firestore = Firebase.firestore
         firestore.collection("users")
             .document(auth.uid.toString())
@@ -132,7 +132,7 @@ class FirebaseDatabase {
             .set(data)
     }
 
-    fun deleteFavoriteFirebase(data: Food){
+    fun deleteFavoriteFirebase(data: FoodFavorite){
         val firestore = Firebase.firestore
         firestore.collection("users")
             .document(auth.uid.toString())

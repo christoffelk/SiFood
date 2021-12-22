@@ -1,10 +1,7 @@
 package com.capstone.sifood.data.local.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.data.local.entities.FoodFavorite
@@ -17,6 +14,7 @@ interface FoodDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFoodLocation(data: List<FoodLocation>)
+
     @Query("SELECT * FROM food")
     fun getAllFood(): LiveData<List<Food>>
 
@@ -27,16 +25,20 @@ interface FoodDao {
     fun getFavorite() : LiveData<List<FoodFavorite>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavorite(data : List<FoodFavorite>)
+    fun insertFavorite(data : FoodFavorite)
+
+    @Delete
+    fun deleteFavorite(data: FoodFavorite)
+
     @Query("SELECT * FROM article")
     fun getAllArticle() : LiveData<List<Article>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(data : List<Article>)
 
-    @Query("SELECT EXISTS(SELECT * FROM food where id = :id)")
+    @Query("SELECT EXISTS(SELECT * FROM foodFavorite where id = :id)")
     fun checkFood(id: String) : Boolean
 
-    @Query("DELETE FROM food WHERE id = :id")
+    @Query("DELETE FROM foodFavorite WHERE id = :id")
     fun deleteFood(id: String)
 }

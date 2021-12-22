@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.sifood.MainActivity
 import com.capstone.sifood.data.local.entities.Food
+import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.data.local.entities.FoodLocation
 import com.capstone.sifood.databinding.ActivityFoodDetailBinding
 import com.capstone.sifood.other.Constant.LATITUDE
@@ -25,12 +26,19 @@ import kotlinx.coroutines.withContext
 class FoodDetailActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityFoodDetailBinding
     private val binding get() = _binding
-
+    private lateinit var detailViewModel: FoodDetailViewModel
     private lateinit var auth : FirebaseAuth
+    val foodDetail: FoodFavorite? = null
+
+    var checked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityFoodDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory = ViewModelFactory.getInstance(this)
+        detailViewModel = ViewModelProvider(this, factory)[FoodDetailViewModel::class.java]
 
         auth = FirebaseAuth.getInstance()
         val type = intent.getStringExtra(TYPE)
@@ -38,70 +46,116 @@ class FoodDetailActivity : AppCompatActivity() {
 
         if(type == "popular")
         {
-            val foodDetail = intent.getParcelableExtra<Food>(FOOD)
-            binding.description.text = foodDetail?.description.toString()
-            binding.foodName.text = foodDetail?.name.toString()
-            binding.from.text = foodDetail?.province.toString()
-            binding.pictureProfile.loadImage(foodDetail?.imgUrl)
-            binding.pictureBackground.loadImage(foodDetail?.imgUrl)
-            maps(foodDetail?.name.toString())
+            val data = intent.getParcelableExtra<Food>(FOOD) as Food
+
+            detailViewModel.setDataPopular(data)
+
+            detailViewModel.foodPopular.observe(this,{
+                val data = FoodFavorite(
+                    id = it.id,
+                    name = it.name,
+                    province = it.province,
+                    provinceEng = it.provinceEng,
+                    imageLicence = it.imageLicence,
+                    contentLicence = it.contentLicence,
+                    imgUrl = it.imgUrl,
+                    description = it.description,
+                    popular = it.popular
+                )
+                setData(data)
+                CoroutineScope(Dispatchers.IO).launch {
+                    val check = detailViewModel.check(data.id.toString())
+                    withContext(Dispatchers.Main)
+                    {
+                        if (check) {
+                            binding.btnDetailFavorite.isChecked = true
+                            checked = true
+                        } else {
+                            binding.btnDetailFavorite.isChecked = false
+                            checked = false
+                        }
+                    }
+                }
+                binding.btnDetailFavorite.setOnClickListener {
+                    checked = !checked
+                    if (checked) {
+                        data.let { it1 ->
+                            detailViewModel.insert(it1)
+                        }
+                    } else {
+                        data.let { it1 ->
+                            detailViewModel.delete(it1)
+                        }
+                    }
+                    binding.btnDetailFavorite.isChecked = checked
+                }
+            })
         }
+
         if(type == "Location")
         {
-            val foodLocation = intent.getParcelableExtra<FoodLocation>(FOOD)
-            binding.description.text = foodLocation?.description.toString()
-            binding.foodName.text = foodLocation?.name.toString()
-            binding.from.text = foodLocation?.province.toString()
-            binding.pictureProfile.loadImage(foodLocation?.imgUrl)
-            binding.pictureBackground.loadImage(foodLocation?.imgUrl)
-            maps(foodLocation?.name.toString())
+            val data = intent.getParcelableExtra<FoodLocation>(FOOD) as FoodLocation
+
+            detailViewModel.setDataLocation(data)
+
+            detailViewModel.foodLocation.observe(this,{
+                val data = FoodFavorite(
+                    id = it.id,
+                    name = it.name,
+                    province = it.province,
+                    provinceEng = it.provinceEng,
+                    imageLicence = it.imageLicence,
+                    contentLicence = it.contentLicence,
+                    imgUrl = it.imgUrl,
+                    description = it.description,
+                    popular = it.popular
+                )
+                setData(data)
+                CoroutineScope(Dispatchers.IO).launch {
+                    val check = detailViewModel.check(data.id.toString())
+                    withContext(Dispatchers.Main)
+                    {
+                        if (check) {
+                            binding.btnDetailFavorite.isChecked = true
+                            checked = true
+                        } else {
+                            binding.btnDetailFavorite.isChecked = false
+                            checked = false
+                        }
+                    }
+                }
+                binding.btnDetailFavorite.setOnClickListener {
+                    checked = !checked
+                    if (checked) {
+                        data.let { it1 ->
+                            detailViewModel.insert(it1)
+                        }
+                    } else {
+                        data.let { it1 ->
+                            detailViewModel.delete(it1)
+                        }
+                    }
+                    binding.btnDetailFavorite.isChecked = checked
+                }
+            })
         }
         binding.btnDetailBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
 
-
-        val factory = ViewModelFactory.getInstance(this)
-        val detailViewModel = ViewModelProvider(this, factory)[FoodDetailViewModel::class.java]
-        var checked = false
-        /*CoroutineScope(Dispatchers.IO).launch {
-            val check = detailViewModel.check(foodDetail?.id.toString())
-            withContext(Dispatchers.Main)
-            {
-                if (check) {
-                    binding.btnDetailFavorite.isChecked = true
-                    checked = true
-                } else {
-                    binding.btnDetailFavorite.isChecked = false
-                    checked = false
-                }
-            }
+    private fun setData(foodDetail: FoodFavorite) {
+        with(binding){
+            description.text = foodDetail.description.toString()
+            foodName.text = foodDetail.name.toString()
+            from.text = foodDetail.province.toString()
+            pictureProfile.loadImage(foodDetail.imgUrl)
+            pictureBackground.loadImage(foodDetail.imgUrl)
+            maps(foodDetail.name.toString())
         }
-        binding.btnDetailFavorite.setOnClickListener {
-            checked = !checked
-            if (checked) {
-                foodDetail?.let { it1 ->
-                    detailViewModel.insertFirebase(it1)
-                }
-            } else {
-                detailViewModel.delete(foodDetail?.id.toString())
-                foodDetail?.let {
-                    detailViewModel.deleteFirebase(foodDetail)
-                }
-            }
-            binding.btnDetailFavorite.isChecked = checked
-        }*/
     }
 
-    private fun addFavoriteToFirestore(data: Food){
-        val firestore = Firebase.firestore
-        firestore.collection("users")
-            .document(auth.uid.toString())
-            .collection("favorites")
-            .document(data.id.toString())
-            .set(data)
-    }
     private fun maps(name :String)
     {
         binding.btnMaps.setOnClickListener {
@@ -112,14 +166,6 @@ class FoodDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun deletefavoriteFirestore(data: Food){
-        val firestore = Firebase.firestore
-        firestore.collection("users")
-            .document(auth.uid.toString())
-            .collection("favorites")
-            .document(data.id.toString())
-            .delete()
-    }
 
     private fun ImageView.loadImage(url: String?) {
         Glide.with(this.context)

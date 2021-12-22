@@ -19,7 +19,9 @@ interface AllDataSource {
     fun getLastLocation(): LiveData<List<Double>>
     fun getLocationName(lat: Double, long: Double): LiveData<String>
 
-    fun insertFavoriteFirebase(data: Food)
-    fun deleteFavoriteFirebase(data: Food)
-    fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>>
+//    fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>>
+
+    fun insertFavorite(data: FoodFavorite)
+    fun deleteFavorite(data: FoodFavorite)
+
 }
