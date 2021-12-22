@@ -28,5 +28,6 @@ class LocalDataSource private constructor(private val mFoodDao: FoodDao) {
     fun checkFood(id: String) : Boolean = mFoodDao.checkFood(id)
     fun deleteFood(id: String) = mFoodDao.deleteFood(id)
     fun deleteFavorite(data: FoodFavorite) = mFoodDao.deleteFavorite(data)
+    fun insertAllFoodFavorite(data: List<FoodFavorite>) = mFoodDao.insertAllFavorite(data)
 
 }

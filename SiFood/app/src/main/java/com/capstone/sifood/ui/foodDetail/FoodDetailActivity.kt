@@ -92,6 +92,37 @@ class FoodDetailActivity : AppCompatActivity() {
             })
         }
 
+        if (type == "favorite"){
+            val data = intent.getParcelableExtra<FoodFavorite>(FOOD) as FoodFavorite
+            setData(data)
+            CoroutineScope(Dispatchers.IO).launch {
+                val check = detailViewModel.check(data.id.toString())
+                withContext(Dispatchers.Main)
+                {
+                    if (check) {
+                        binding.btnDetailFavorite.isChecked = true
+                        checked = true
+                    } else {
+                        binding.btnDetailFavorite.isChecked = false
+                        checked = false
+                    }
+                }
+            }
+            binding.btnDetailFavorite.setOnClickListener {
+                checked = !checked
+                if (checked) {
+                    data.let { it1 ->
+                        detailViewModel.insert(it1)
+                    }
+                } else {
+                    data.let { it1 ->
+                        detailViewModel.delete(it1)
+                    }
+                }
+                binding.btnDetailFavorite.isChecked = checked
+            }
+        }
+
         if(type == "Location")
         {
             val data = intent.getParcelableExtra<FoodLocation>(FOOD) as FoodLocation
@@ -176,6 +207,6 @@ class FoodDetailActivity : AppCompatActivity() {
 
     companion object {
         const val FOOD = "food"
-        const val TYPE = "popular"
+        const val TYPE = ""
     }
 }

@@ -27,6 +27,9 @@ interface FoodDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavorite(data : FoodFavorite)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllFavorite(data : List<FoodFavorite>)
+
     @Delete
     fun deleteFavorite(data: FoodFavorite)
 

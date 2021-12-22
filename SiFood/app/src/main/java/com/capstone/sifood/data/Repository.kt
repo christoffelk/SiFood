@@ -120,24 +120,24 @@ class Repository private constructor(
         return locationPicker.getLocationName(lat, long)
     }
 
-//    override fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>> {
-//        return object :  NetworkBoundResource<List<FoodFavorite>,List<FoodFavorite>>(appExecutors)
-//        {
-//            override fun loadFromDB(): LiveData<List<FoodFavorite>> =
-//                localDataSource.getFavorite()
-//
-//            override fun shouldFetch(data: List<FoodFavorite>?): Boolean =
-//                data.isNullOrEmpty()
-//
-//            override fun createCall(): LiveData<ApiResponse<List<FoodFavorite>>> =
-//                firebaseDatabase.getFavoriteFirebase(uid)
-//
-//            override fun saveCallResult(data: List<FoodFavorite>) {
-//                localDataSource.insertFoodFavorite(data)
-//            }
-//
-//        }.asLiveData()
-//    }
+    override fun getFavoriteFromFirebase(uid: String): LiveData<Resource<List<FoodFavorite>>> {
+        return object :  NetworkBoundResource<List<FoodFavorite>,List<FoodFavorite>>(appExecutors)
+        {
+            override fun loadFromDB(): LiveData<List<FoodFavorite>> =
+                localDataSource.getFavorite()
+
+            override fun shouldFetch(data: List<FoodFavorite>?): Boolean =
+                data.isNullOrEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<FoodFavorite>>> =
+                firebaseDatabase.getFavoriteFirebase(uid)
+
+            override fun saveCallResult(data: List<FoodFavorite>) {
+                localDataSource.insertAllFoodFavorite(data)
+            }
+
+        }.asLiveData()
+    }
 
     override fun insertFavorite(data: FoodFavorite) {
         try {
