@@ -53,6 +53,8 @@ class FavoriteFragment : Fragment() {
                             .show()
                     }
                     Status.SUCCESS -> {
+                        binding.emtyImage.visibility = View.GONE
+                        binding.emptyInformation.visibility = View.GONE
                         favoriteAdapter.addItem(it.data as ArrayList<FoodFavorite>)
                         with(binding.rvFavorite)
                         {

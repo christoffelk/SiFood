@@ -1,4 +1,4 @@
-package com.capstone.sifood
+package com.capstone.sifood.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -11,21 +11,20 @@ import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.capstone.sifood.R
 import com.capstone.sifood.databinding.ActivityMainBinding
-import com.capstone.sifood.other.Constant.LATITUDE
-import com.capstone.sifood.other.Constant.LOCATION_NAME
-import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.other.LocationPicker
 import com.capstone.sifood.ui.login.LoginActivity
 import com.capstone.sifood.ui.nointernet.NoInternetActivity
 import com.capstone.sifood.ui.setting.SettingActivity
+import com.capstone.sifood.viewmodel.ViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +36,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var viewModel: MainViewModel
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val factory = ViewModelFactory.getInstance(this)
+
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -87,6 +92,7 @@ class MainActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 auth.signOut()
                 val intent = Intent(this, LoginActivity::class.java)
+                viewModel.deleteAllFavorite()
                 startActivity(intent)
                 finish()
             }

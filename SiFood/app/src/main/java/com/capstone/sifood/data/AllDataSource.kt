@@ -23,5 +23,6 @@ interface AllDataSource {
 
     fun insertFavorite(data: FoodFavorite)
     fun deleteFavorite(data: FoodFavorite)
+    fun deleteAllFavorite()
 
 }

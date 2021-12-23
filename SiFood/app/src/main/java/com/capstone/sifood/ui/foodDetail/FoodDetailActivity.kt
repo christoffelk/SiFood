@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.capstone.sifood.MainActivity
+import com.capstone.sifood.ui.main.MainActivity
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.data.local.entities.FoodLocation
@@ -16,8 +16,6 @@ import com.capstone.sifood.other.Constant.LATITUDE
 import com.capstone.sifood.other.Constant.LONGITUDE
 import com.capstone.sifood.viewmodel.ViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

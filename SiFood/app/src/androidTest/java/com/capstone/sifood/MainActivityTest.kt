@@ -10,6 +10,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.capstone.sifood.other.EspressoIdlingResource
+import com.capstone.sifood.ui.main.MainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

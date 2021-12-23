@@ -10,11 +10,16 @@ import com.capstone.sifood.ui.article.ArticleViewModel
 import com.capstone.sifood.ui.favorite.FavoriteViewModel
 import com.capstone.sifood.ui.foodDetail.FoodDetailViewModel
 import com.capstone.sifood.ui.home.HomeViewModel
+import com.capstone.sifood.ui.main.MainViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when
         {
+            modelClass.isAssignableFrom(MainViewModel::class.java) ->
+            {
+                return MainViewModel(repository) as T
+            }
             modelClass.isAssignableFrom(ArticleViewModel::class.java) ->
             {
                 return ArticleViewModel(repository) as T

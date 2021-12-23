@@ -163,6 +163,12 @@ class Repository private constructor(
         }
     }
 
+    override fun deleteAllFavorite() {
+        appExecutors.diskIO().execute {
+            localDataSource.deleteallFavorite()
+        }
+    }
+
 
     companion object{
         @Volatile

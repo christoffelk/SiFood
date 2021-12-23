@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.capstone.sifood.MainActivity
+import com.capstone.sifood.ui.main.MainActivity
 import com.capstone.sifood.R
 
 class NoInternetActivity : AppCompatActivity() {

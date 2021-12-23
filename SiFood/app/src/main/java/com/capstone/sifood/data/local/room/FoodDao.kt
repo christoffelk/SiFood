@@ -44,4 +44,7 @@ interface FoodDao {
 
     @Query("DELETE FROM foodFavorite WHERE id = :id")
     fun deleteFood(id: String)
+
+    @Query("DELETE FROM foodFavorite")
+    fun deleteAllFavorite()
 }

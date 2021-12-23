@@ -1,4 +1,4 @@
-package com.capstone.sifood
+package com.capstone.sifood.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.capstone.sifood.R
 import com.capstone.sifood.ui.login.LoginActivity
+import com.capstone.sifood.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("CustomSplashScreen")
@@ -23,7 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if(currentUser != null){
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
