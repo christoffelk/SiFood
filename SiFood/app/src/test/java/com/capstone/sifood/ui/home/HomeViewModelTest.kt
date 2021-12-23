@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.capstone.sifood.data.Repository
+import com.capstone.sifood.data.firebase.entities.Resource
 import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.other.DataDummy
 import com.nhaarman.mockitokotlin2.verify
@@ -27,7 +28,7 @@ class HomeViewModelTest{
     private lateinit var repository: Repository
 
     @Mock
-    private lateinit var observer: Observer<List<Food>>
+    private lateinit var observer: Observer<Resource<List<Food>>>
 
     @Before
     fun setUp()
@@ -38,8 +39,8 @@ class HomeViewModelTest{
     @Test
     fun getFood()
     {
-        val dummyList  = DataDummy.listFood()
-        val list = MutableLiveData<List<Food>>()
+        val dummyList  = Resource.success(DataDummy.listFood())
+        val list = MutableLiveData<Resource<List<Food>>>()
         list.value = dummyList
         Mockito.`when`(repository.getPopularFood()).thenReturn(list)
         val foodEntity = viewModel.getPopularFood().value

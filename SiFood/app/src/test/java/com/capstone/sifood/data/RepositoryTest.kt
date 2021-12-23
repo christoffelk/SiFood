@@ -34,10 +34,10 @@ class RepositoryTest{
     {
         val dummyFood = MutableLiveData<List<Food>>()
         dummyFood.value = DataDummy.listFood()
-        `when`(firebaseDatabase.getPopularFood()).thenReturn(dummyFood)
+        `when`(local.getAllFood()).thenReturn(dummyFood)
         val foodEntities = LiveDataTestUtil.getValue(repository.getPopularFood())
-        verify(firebaseDatabase).getPopularFood()
-        assertNotNull(foodEntities)
+        verify(local).getAllFood()
+        assertNotNull(foodEntities.data)
     }
 
     @Test
