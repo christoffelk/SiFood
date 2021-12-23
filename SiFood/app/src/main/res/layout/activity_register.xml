@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.register.RegisterActivity">
+    tools:context=".ui.register.RegisterActivity"
+    android:background="@drawable/ic_bg_login">
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"

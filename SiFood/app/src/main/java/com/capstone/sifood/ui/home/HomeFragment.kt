@@ -142,14 +142,14 @@ class HomeFragment : Fragment() {
                 dots[i].setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.teal_700
+                        R.color.design_default_color_primary
                     )
                 )
             } else {
                 dots[i].setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.teal_200
+                        R.color.design_default_color_secondary
                     )
                 )
             }

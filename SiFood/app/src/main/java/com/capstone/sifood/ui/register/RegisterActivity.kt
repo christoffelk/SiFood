@@ -22,12 +22,6 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.tvSignUp.setOnClickListener {
-            Intent(this, LoginActivity::class.java).let {
-                startActivity(it)
-            }
-        }
-
         binding.btnLogin.setOnClickListener {
             val email = binding.tfValueEmail.text.toString().trim()
             val password = binding.tfValuePassword.text.toString().trim()
