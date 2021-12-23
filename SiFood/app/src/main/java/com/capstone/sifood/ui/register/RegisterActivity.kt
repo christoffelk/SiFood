@@ -23,9 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         binding.tvSignUp.setOnClickListener {
-            Intent(this, LoginActivity::class.java).let {
-                startActivity(it)
-            }
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         binding.btnLogin.setOnClickListener {

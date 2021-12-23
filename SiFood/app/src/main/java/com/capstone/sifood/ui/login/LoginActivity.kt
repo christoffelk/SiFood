@@ -31,9 +31,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvSignUp.setOnClickListener {
-            Intent(this, RegisterActivity::class.java).let {
-                startActivity(it)
-            }
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
