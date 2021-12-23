@@ -25,10 +25,10 @@ class FoodDetailActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityFoodDetailBinding
     private val binding get() = _binding
     private lateinit var detailViewModel: FoodDetailViewModel
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     val foodDetail: FoodFavorite? = null
 
-    var checked = false
+    private var checked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +42,12 @@ class FoodDetailActivity : AppCompatActivity() {
         val type = intent.getStringExtra(TYPE)
 
 
-        if(type == "popular")
-        {
+        if (type == "popular") {
             val data = intent.getParcelableExtra<Food>(FOOD) as Food
 
             detailViewModel.setDataPopular(data)
 
-            detailViewModel.foodPopular.observe(this,{
+            detailViewModel.foodPopular.observe(this, {
                 val data = FoodFavorite(
                     id = it.id,
                     name = it.name,
@@ -90,7 +89,7 @@ class FoodDetailActivity : AppCompatActivity() {
             })
         }
 
-        if (type == "favorite"){
+        if (type == "favorite") {
             val data = intent.getParcelableExtra<FoodFavorite>(FOOD) as FoodFavorite
             setData(data)
             CoroutineScope(Dispatchers.IO).launch {
@@ -121,13 +120,12 @@ class FoodDetailActivity : AppCompatActivity() {
             }
         }
 
-        if(type == "Location")
-        {
+        if (type == "Location") {
             val data = intent.getParcelableExtra<FoodLocation>(FOOD) as FoodLocation
 
             detailViewModel.setDataLocation(data)
 
-            detailViewModel.foodLocation.observe(this,{
+            detailViewModel.foodLocation.observe(this, {
                 val data = FoodFavorite(
                     id = it.id,
                     name = it.name,
@@ -175,7 +173,7 @@ class FoodDetailActivity : AppCompatActivity() {
     }
 
     private fun setData(foodDetail: FoodFavorite) {
-        with(binding){
+        with(binding) {
             description.text = foodDetail.description.toString()
             foodName.text = foodDetail.name.toString()
             from.text = foodDetail.province.toString()
@@ -185,8 +183,7 @@ class FoodDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun maps(name :String)
-    {
+    private fun maps(name: String) {
         binding.btnMaps.setOnClickListener {
             val gmmIntentUri: Uri = Uri.parse("geo:${LATITUDE},${LONGITUDE}?q=${name}")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)

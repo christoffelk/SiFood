@@ -2,7 +2,6 @@ package com.capstone.sifood.other
 
 import com.capstone.sifood.data.firebase.entities.Article
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.data.remote.response.ArticlesItem
 
 object DataDummy {
     fun listArticle(): List<Article> {
@@ -18,7 +17,7 @@ object DataDummy {
         return arrayList
     }
 
-    fun getRemoteArticle(): List<ArticlesItem> {
+    /*fun getRemoteArticle(): List<ArticlesItem> {
         val arrayList = ArrayList<ArticlesItem>()
         arrayList.add(
             ArticlesItem(
@@ -30,7 +29,7 @@ object DataDummy {
         )
 
         return arrayList
-    }
+    }*/
 
     fun listFood(): List<Food> {
         val arrayList = ArrayList<Food>()

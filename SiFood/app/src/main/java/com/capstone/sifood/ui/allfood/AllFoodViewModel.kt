@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.sifood.data.Repository
 import com.capstone.sifood.data.local.entities.Food
-import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.coroutines.launch
 
-class AllFoodViewModel(private val repository: Repository): ViewModel() {
+class AllFoodViewModel(private val repository: Repository) : ViewModel() {
     private var _data = MutableLiveData<List<Food>>()
     val data: LiveData<List<Food>> = _data
 
@@ -25,17 +24,18 @@ class AllFoodViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun setData(filter: String, keyword: String = ""){
-        when (filter){
+    fun setData(filter: String, keyword: String = "") {
+        when (filter) {
             "search" -> {
                 getFoodByKeyword(keyword)
             }
         }
     }
-    fun getPopularFood() = repository.getPopularFood()
-    fun getFoodByLocation(location:String) = repository.getFoodByLocation(location)
 
-    private fun getFoodByKeyword(keyword: String){
+    fun getPopularFood() = repository.getPopularFood()
+    fun getFoodByLocation(location: String) = repository.getFoodByLocation(location)
+
+    private fun getFoodByKeyword(keyword: String) {
         val foodCollection = firestore.collection("makanan")
         foodCollection.whereEqualTo("province", keyword)
             .get()

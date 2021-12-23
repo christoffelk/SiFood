@@ -105,6 +105,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         const val FILTER = "filter"
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onQueryTextSubmit(key: String?): Boolean {
         if (key != null) {
             viewModel.setData("search", key)

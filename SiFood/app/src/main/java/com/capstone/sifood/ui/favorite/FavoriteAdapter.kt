@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.capstone.sifood.data.local.entities.Food
 import com.capstone.sifood.data.local.entities.FoodFavorite
 import com.capstone.sifood.databinding.ItemlistBinding
 import com.capstone.sifood.ui.foodDetail.FoodDetailActivity
@@ -29,7 +28,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, FoodDetailActivity::class.java)
                 intent.putExtra(FoodDetailActivity.FOOD, food)
-                intent.putExtra(FoodDetailActivity.TYPE,"favorite")
+                intent.putExtra(FoodDetailActivity.TYPE, "favorite")
                 itemView.context.startActivity(intent)
             }
         }
