@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.capstone.sifood.ui.main.MainActivity
 import com.capstone.sifood.R
 import com.capstone.sifood.ui.login.LoginActivity
-import com.capstone.sifood.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("CustomSplashScreen")

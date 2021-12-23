@@ -41,16 +41,12 @@ class NoInternetActivity : AppCompatActivity() {
             val capa =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capa != null) {
-                when {
-                    capa.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                        return true
-                    }
-                    capa.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                        return true
-                    }
-                    capa.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                        return true
-                    }
+                if (capa.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    return true
+                } else if (capa.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    return true
+                } else if (capa.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    return true
                 }
             }
         }
