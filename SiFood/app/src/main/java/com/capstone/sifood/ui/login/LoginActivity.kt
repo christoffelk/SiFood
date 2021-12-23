@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.capstone.sifood.MainActivity
+import com.capstone.sifood.ui.main.MainActivity
 import com.capstone.sifood.R
 import com.capstone.sifood.databinding.ActivityLoginBinding
 import com.capstone.sifood.ui.register.RegisterActivity

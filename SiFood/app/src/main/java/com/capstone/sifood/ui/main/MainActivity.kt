@@ -1,4 +1,4 @@
-package com.capstone.sifood
+package com.capstone.sifood.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -11,15 +11,18 @@ import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.capstone.sifood.R
 import com.capstone.sifood.databinding.ActivityMainBinding
 import com.capstone.sifood.ui.login.LoginActivity
 import com.capstone.sifood.ui.nointernet.NoInternetActivity
 import com.capstone.sifood.ui.setting.SettingActivity
+import com.capstone.sifood.viewmodel.ViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -29,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var viewModel: MainViewModel
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,9 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val fac = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, fac).get(MainViewModel::class.java)
 
         auth = FirebaseAuth.getInstance()
 
@@ -78,6 +86,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_logout -> {
                 auth.signOut()
+                viewModel.deleteAllFavorite()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

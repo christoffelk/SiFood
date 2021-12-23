@@ -46,7 +46,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                         when (it.status) {
                             Status.LOADING -> {}
                             Status.ERROR -> {
-                                Toast.makeText(this, "Tidak dapat memuat data", Toast.LENGTH_SHORT)
+                                Toast.makeText(this, "Tidak dapat memuat data ", Toast.LENGTH_SHORT)
                                     .show()
                             }
                             Status.SUCCESS -> {
@@ -113,7 +113,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 val data = it as ArrayList<Food>
                 if (data.isNotEmpty()) {
                     allFoodAdapter.addItem(data)
-                    binding.textResult.text = "Makanan dengan keyword \'$key\'"
+                    binding.textResult.text = "Makanan dengan keyword  \'$key\'"
                 } else {
                     binding.textResult.text = "Makanan dengan keyword \'$key\' tidak ditemukan"
                 }
