@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val fac = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, fac).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, fac)[MainViewModel::class.java]
 
         auth = FirebaseAuth.getInstance()
 

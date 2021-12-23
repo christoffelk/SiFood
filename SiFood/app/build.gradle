@@ -40,9 +40,9 @@ android {
 dependencies {
 
 
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
     ext {
-        room_version = "2.3.0"
+        room_version = "2.4.0"
     }
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -53,7 +53,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.0'
 
     implementation "androidx.fragment:fragment-ktx:1.4.0"
 

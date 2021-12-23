@@ -1,15 +1,11 @@
 package com.capstone.sifood.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isVisible
-import com.capstone.sifood.ui.main.MainActivity
-import com.capstone.sifood.R
+import androidx.appcompat.app.AppCompatActivity
 import com.capstone.sifood.databinding.ActivityLoginBinding
+import com.capstone.sifood.ui.main.MainActivity
 import com.capstone.sifood.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -53,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val message = task.exception.toString().split(":").toTypedArray()[1]
 
-                    with(binding.tvAlert){
+                    with(binding.tvAlert) {
                         text = message
                         visibility = View.VISIBLE
                     }
@@ -62,11 +58,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun showLoading(state: Boolean){
+    private fun showLoading(state: Boolean) {
 //        binding.pbLoading.isVisible = state
     }
 
-    companion object{
+    companion object {
         private const val TAG = "Login Activity"
     }
 }

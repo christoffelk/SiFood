@@ -2,11 +2,10 @@ package com.capstone.sifood.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.capstone.sifood.R
+import androidx.appcompat.app.AppCompatActivity
 import com.capstone.sifood.databinding.ActivitySplashScreenBinding
 import com.capstone.sifood.ui.login.LoginActivity
 import com.capstone.sifood.ui.main.MainActivity
@@ -30,12 +29,12 @@ class SplashScreenActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if(currentUser != null){
+            if (currentUser != null) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                val intent = Intent(this,LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
