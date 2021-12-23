@@ -61,8 +61,4 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoading(state: Boolean) {
 //        binding.pbLoading.isVisible = state
     }
-
-    companion object {
-        private const val TAG = "Login Activity"
-    }
 }
