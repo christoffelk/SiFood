@@ -8,6 +8,15 @@
 - https://github.com/hdodenhof/CircleImageView
 - https://github.com/mockito/mockito-kotlin
 - https://firebase.google.com/docs/android/setup
+- https://developer.android.com/training/testing/ui-testing/espresso-testing
+- https://github.com/junit-team/junit4
+- https://developers.google.com/android/guides/releases
+- https://developer.android.com/jetpack/androidx/releases/room#version_240_2
+- https://developer.android.com/guide/navigation/navigation-getting-started
+- https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=id
+- https://developer.android.com/kotlin/ktx
+- https://developer.android.com/jetpack/androidx/releases/appcompat?hl=id
+- https://developer.android.com/jetpack/androidx/releases/constraintlayout?hl=id
 
 ## Daftar API yang kami gunakan untuk mendapatkan article
 - https://newsapi.org/
