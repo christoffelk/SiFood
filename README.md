@@ -1,4 +1,7 @@
 # SiFood
+## Buku Panduan Penggunaan Aplikasi
+jika anda ingin menyimpan buku panduan/melihat buku panduan, anda dapat melihat di link berikut : 
+https://docs.google.com/document/d/1csVTfhaCWD8MoISkYmFQM-26XzuK36mpOiQeuFCqNdM/edit?usp=sharing
 
 ## Daftar Library yang kami pakai untuk Aplikasi ini
 - https://github.com/square/retrofit
