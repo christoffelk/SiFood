@@ -7,11 +7,12 @@
 - https://github.com/bumptech/glide
 - https://github.com/hdodenhof/CircleImageView
 - https://github.com/mockito/mockito-kotlin
+- https://firebase.google.com/docs/android/setup
 
 ## Daftar API yang kami gunakan untuk mendapatkan article
 - https://newsapi.org/
 
-## Daftar Data-Data yang kami gunakan untuk dataset
+## Daftar Sumber Data-Data yang kami gunakan untuk dataset
 - [1] indonesia.travel
 - [2] wikipedia.org
 - [3] katadata.co.id
