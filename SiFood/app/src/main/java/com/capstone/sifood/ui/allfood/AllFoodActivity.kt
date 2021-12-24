@@ -14,6 +14,8 @@ import com.capstone.sifood.databinding.ActivityAllFoodBinding
 import com.capstone.sifood.other.Constant.LOCATION_NAME
 import com.capstone.sifood.viewmodel.ViewModelFactory
 import com.capstone.sifood.vo.Status
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
@@ -108,7 +110,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     @SuppressLint("SetTextI18n")
     override fun onQueryTextSubmit(key: String?): Boolean {
         if (key != null) {
-            viewModel.setData("search", key)
+            capitalizeString(key)?.let { viewModel.setData("search", it) }
             viewModel.data.observe(this, {
                 val data = it as ArrayList<Food>
                 if (data.isNotEmpty()) {
@@ -125,5 +127,20 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(p0: String?): Boolean {
         return false
+    }
+    fun capitalizeString(string: String?): String? {
+        val chars = string?.lowercase(Locale.getDefault())?.toCharArray()
+        var found = false
+        if (chars != null) {
+            for (i in chars.indices) {
+                if (!found && Character.isLetter(chars[i])) {
+                    chars[i] = Character.toUpperCase(chars[i])
+                    found = true
+                } else if (Character.isWhitespace(chars[i]) || chars[i] == '.' || chars[i] == '\'') { // You can add other chars here
+                    found = false
+                }
+            }
+        }
+        return chars?.let { String(it) }
     }
 }
