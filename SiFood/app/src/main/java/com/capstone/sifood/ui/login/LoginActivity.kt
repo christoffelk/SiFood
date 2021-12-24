@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.capstone.sifood.databinding.ActivityLoginBinding
 import com.capstone.sifood.ui.main.MainActivity
 import com.capstone.sifood.ui.register.RegisterActivity
@@ -57,6 +58,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun showLoading(state: Boolean) {
-//        binding.pbLoading.isVisible = state
+        binding.pbLoading.isVisible = state
     }
 }
