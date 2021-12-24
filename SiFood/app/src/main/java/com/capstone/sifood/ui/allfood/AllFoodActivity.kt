@@ -128,7 +128,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(p0: String?): Boolean {
         return false
     }
-    fun capitalizeString(string: String?): String? {
+    private fun capitalizeString(string: String?): String? {
         val chars = string?.lowercase(Locale.getDefault())?.toCharArray()
         var found = false
         if (chars != null) {
@@ -136,7 +136,7 @@ class AllFoodActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 if (!found && Character.isLetter(chars[i])) {
                     chars[i] = Character.toUpperCase(chars[i])
                     found = true
-                } else if (Character.isWhitespace(chars[i]) || chars[i] == '.' || chars[i] == '\'') { // You can add other chars here
+                } else if (Character.isWhitespace(chars[i]) || chars[i] == '.' || chars[i] == '\'') {
                     found = false
                 }
             }
